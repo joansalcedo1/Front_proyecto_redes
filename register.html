@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body class="bg-no-repeat bg-fixed bg-cover h-screen" style="background-image: url('./media/BG.jpg');">
+    <div id="dad_form" class="flex flex-col items-center justify-center h-screen">
+        <div id="content_form" class="bg-white p-8 rounded-3xl shadow-md w-1/3 ">
+            <div id="titulo" class="py-5">
+                <h1 class="font-bold pb-6 text-center text-3xl">Tu próxima producción empieza aquí</h1>
+            </div>
+            <form id="multipleForm" onsubmit="registroUsuarios(event)" method="POST">
+                <div id="step1" class="step-content">
+                    <div class="mb-4">
+                        <label for="firstname" class="block text-gray-700 font-bold mb-2">Nombre</label>
+                        <input type="text" id="firstname" name="firstname"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-2xl focus:outline-none focus:ring focus:border-blue-300"
+                            required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="lastname" class="block text-gray-700 font-bold mb-2">Apellido</label>
+                        <input type="text" id="lastname" name="lastname"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-2xl focus:outline-none focus:ring focus:border-blue-300"
+                            required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="email" class="block text-gray-700 font-bold mb-2">E-mail</label>
+                        <input type="email" id="email" name="email"
+                            class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:border-blue-300"
+                            required>
+                    </div>
+                    <div class="mb-6">
+                        <label for="password" class="block text-gray-700 font-bold mb-2">Password</label>
+                        <div class="flex flex-row ">
+                            <input type="password" id="password" name="password"
+                                class="w-full px-3 py-2 border rounded-2xl border-gray-300 rounded focus:outline-none focus:ring focus:border-blue-300"
+                                required>
+                            <button type="button" onclick="togglePasswordVisibility()">
+                                <img id="iconPassword" src="https://cdn-icons-png.flaticon.com/512/6684/6684701.png"
+                                    alt="ver/noVer" class="w-6 h-6 m-2 ">
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="RPassword" class="block text-gray-700 font-bold mb-2">Repeat password</label>
+                        <div class="flex flex-row ">
+                            <input type="password" id="RPassword" name="RPassword"
+                                class="w-full px-3 py-2 border rounded-2xl border-gray-300 focus:outline-none focus:ring focus:border-blue-300"
+                                required>
+                            <button type="button" onclick="toggleRPasswordVisibility()">
+                                <img id="iconRPassword" src="https://cdn-icons-png.flaticon.com/512/6684/6684701.png"
+                                    alt="ver/noVer" class="w-6 h-6 m-2 ">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-4 pb-5">
+                        <button onclick="nextStep()" class=" bg-gradient-to-r from-[#23CCE8] to-[#0FF0DE]
+                        text-white font-bold py-3 px-8 rounded-3xl shadow-md 
+                        hover:shadow-xl hover:scale-105 transition duration-300 ease-in-out">
+                            Siguiente
+                        </button>
+                    </div>
+                </div>
+                <div id="step2" class="step-content hidden">
+                    <div class="mb-6">
+                        <label for="department" class="block text-gray-700 font-bold mb-2">Departamento</label>
+                        <select id="department" name="department"
+                            class="w-full px-3 py-2 border border-gray-300 rounded"
+                            required>
+                            <option value="">Seleccione su departamento</option>
+                            <option value="Fotografia">Fotografía</option>
+                            <option value="Arte">Arte</option>
+                            <option value="Luces">Luces</option>
+                            <option value="Sonido">Sonido</option>
+                            <option value="Direccion">Dirección</option>
+                            <option value="Produccion">Producción</option>
+                        </select>
+                    </div>
+                    <div class=" flex flex-col gap-4 ">
+                        <button type="submit"
+                            class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Registrar</button>
+                    </div>
+                </div>
+            </form>
+            <div class="flex gap-4 items-center justify-center pb-5">
+                <div id=indicatorStep1 class="w-2 h-2 bg-blue-400 rounded-full shadow-md"></div>
+                <div id="indicatorStep2" class="w-2 h-2 bg-gray-400 rounded-full shadow-md"></div>
+            </div>
+            <p class="text-sm text-center">¿Si ya tienes cuenta?
+                <a href="index.html" class="text-blue-500">Inicia aquí</a>
+            </p>
+        </div>
+    </div>
+    </div>
+    <script src="services.js"></script>
+    <script>
+        let currentStep = 1;
+        const totalSteps = 2;
+        const form = document.getElementById("multipleForm")
+        function actualizarUI() {
+            const indicator = document.getElementById(`indicatorStep${currentStep}`)
+            for(i=1; i<=totalSteps;i++){
+                if (i === currentStep) {
+                indicator.classList.remove('bg-gray-400');
+                indicator.classList.add('bg-blue-400');
+                
+            } else {
+                indicator.classList.remove('bg-blue-400');
+                indicator.classList.add('bg-gray-400');
+            }
+            console.log(indicator)
+            }
+            
+        }
+
+        function nextStep() {
+            const currentInputs = document.getElementById(`step${currentStep}`).querySelectorAll('input[required]');
+            let allValid = true;
+
+            currentInputs.forEach(input => {
+                if (!input.checkValidity()) {
+                    allValid = false;
+                    input.reportValidity();
+                }
+            });
+
+            if (allValid && currentStep < totalSteps) {
+                currentStep++;
+                console.log(currentStep);
+                actualizarUI();
+                const step2 = document.getElementById("step2")
+                const step1 = document.getElementById("step1")
+
+                step1.classList.add("hidden")
+                step2.classList.remove("hidden")
+            }
+        }
+    </script>
+</body>
+
+</html>
