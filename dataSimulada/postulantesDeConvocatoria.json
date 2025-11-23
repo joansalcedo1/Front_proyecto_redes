@@ -1,0 +1,29 @@
+[
+  {
+    "idPost": 12,
+    "usuarioPos": "juan perez",
+    "rolPos": "fotografía",
+    "tituloConvocatoria": "Corto Sci-Fi: Buscamos Director de Fotografía",
+    "fechaPost": "2025-03-01T14:32:00.000Z",
+    "mensajePres": "Tengo experiencia como DOP en proyectos universitarios y manejo Sony A7SIII.",
+    "estadoPost": "libre"
+  },
+  {
+    "idPost": 9,
+    "usuarioPos": "marcela gomez",
+    "rolPos": "fotografía",
+    "tituloConvocatoria": "Corto Sci-Fi: Buscamos Director de Fotografía",
+    "fechaPost": "2025-02-28T18:20:00.000Z",
+    "mensajePres": "Portafolio disponible. Experta en iluminación sci-fi.",
+    "estadoPost": "libre"
+  },
+  {
+    "idPost": 6,
+    "usuarioPos": "carlos martinez",
+    "rolPos": "fotografía",
+    "tituloConvocatoria": "Corto Sci-Fi: Buscamos Director de Fotografía",
+    "fechaPost": "2025-02-27T10:15:00.000Z",
+    "mensajePres": "Disponible tiempo completo y con equipo propio.",
+    "estadoPost": "libre"
+  }
+]
