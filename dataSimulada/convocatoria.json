@@ -1,0 +1,42 @@
+[
+  {
+    "idConvocatoria": 1,
+    "tituloCon": "Corto Sci-Fi: Buscamos Director de Fotografía",
+    "descripcion": "Proyecto universitario de ciencia ficción. Se requiere DOP con experiencia en cámaras mirrorless.",
+    "areaRequerida": "Fotografía",
+    "estado": "Activa",
+    "fecha_cierre": "2025-03-10",
+    "numPersSolicitad": 1,
+    "tituloProyecto": "Horizonte Azul"
+  },
+  {
+    "idConvocatoria": 2,
+    "tituloCon": "Casting Actor Principal",
+    "descripcion": "Buscamos actor hombre entre 20 y 30 años para rol dramático.",
+    "areaRequerida": "Actuación",
+    "estado": "Activa",
+    "fecha_cierre": "2025-04-01",
+    "numPersSolicitad": 1,
+    "tituloProyecto": "La Última Luz"
+  },
+  {
+    "idConvocatoria": 3,
+    "tituloCon": "Diseñador de sonido",
+    "descripcion": "Se necesita diseñador sonoro para corto noir. Trabajo remoto.",
+    "areaRequerida": "Sonido",
+    "estado": "En revisión",
+    "fecha_cierre": "2025-02-28",
+    "numPersSolicitad": 2,
+    "tituloProyecto": "Sombras Urbanas"
+  },
+  {
+    "idConvocatoria": 4,
+    "tituloCon": "Animador 2D para créditos finales",
+    "descripcion": "Corto experimental requiere animador 2D para secuencia de créditos.",
+    "areaRequerida": "Animación",
+    "estado": "Cerrada",
+    "fecha_cierre": "2025-01-15",
+    "numPersSolicitad": 1,
+    "tituloProyecto": "El Eco del Viento"
+  }
+]
