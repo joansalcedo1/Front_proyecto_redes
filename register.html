@@ -6,7 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
     <script src="https://cdn.tailwindcss.com"></script>
-
+    <script>
+        //modifica la vista del password
+        function toggleRPasswordVisibility() {
+            const passwordInput = document.getElementById('RPassword');
+            const imgIcon = document.getElementById('iconRPassword');
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            const icon = passwordInput.getAttribute('type') === 'password' ? 'https://cdn-icons-png.flaticon.com/512/9759/9759281.png' : 'https://cdn-icons-png.flaticon.com/512/6684/6684701.png ';
+            passwordInput.setAttribute('type', type);
+            imgIcon.setAttribute('src', icon);
+        }
+    </script>
 </head>
 
 <body class="bg-no-repeat bg-fixed bg-cover h-screen" style="background-image: url('./media/BG.jpg');">
@@ -32,12 +42,12 @@
                     <div class="mb-4">
                         <label for="email" class="block text-gray-700 font-bold mb-2">E-mail</label>
                         <input type="email" id="email" name="email"
-                            class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:border-blue-300"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-2xl focus:outline-none focus:ring focus:border-blue-300"
                             required>
                     </div>
                     <div class="mb-6">
                         <label for="password" class="block text-gray-700 font-bold mb-2">Password</label>
-                        <div class="flex flex-row ">
+                        <div class="flex flex-row">
                             <input type="password" id="password" name="password"
                                 class="w-full px-3 py-2 border rounded-2xl border-gray-300 rounded focus:outline-none focus:ring focus:border-blue-300"
                                 required>
@@ -70,10 +80,8 @@
                 </div>
                 <div id="step2" class="step-content hidden">
                     <div class="mb-6">
-                        <label for="department" class="block text-gray-700 font-bold mb-2">Departamento</label>
-                        <select id="department" name="department"
-                            class="w-full px-3 py-2 border border-gray-300 rounded"
-                            required>
+                        <label for="rol" class="block text-gray-700 font-bold mb-2">Rol</label>
+                        <select id="rol" name="rol" class="w-full px-3 py-2 border border-gray-300 rounded" required>
                             <option value="">Seleccione su departamento</option>
                             <option value="Fotografia">Fotografía</option>
                             <option value="Arte">Arte</option>
@@ -83,18 +91,57 @@
                             <option value="Produccion">Producción</option>
                         </select>
                     </div>
-                    <div class=" flex flex-col gap-4 ">
-                        <button type="submit"
-                            class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Registrar</button>
+                    <div class="flex flex-col gap-4 pb-5">
+                        <button onclick="nextStep()" class=" bg-gradient-to-r from-[#23CCE8] to-[#0FF0DE]
+                        text-white font-bold py-3 px-8 rounded-3xl shadow-md 
+                        hover:shadow-xl hover:scale-105 transition duration-300 ease-in-out">
+                            Siguiente
+                        </button>
+                    </div>
+
+                </div>
+                <div id="step3" class="step-content hidden">
+                    <label for="perfil" class="inline-block block text-gray-700 font-bold">Perfil</label>
+                    <div class="relative inline-block group">
+                        <span class="text-blue-500 cursor-help hover:text-blue-700">
+                            <img src="https://cdn-icons-png.flaticon.com/512/1/1176.png" class="w-5" alt="" srcset="">
+                        </span>
+                        <!-- Esto es el mensaje que se abre -->
+                        <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 
+                        px-3 py-2 mb-2 w-max text-sm text-white bg-gray-800 
+                        rounded-lg shadow-lg opacity-0 pointer-events-none 
+                        group-hover:opacity-100 group-hover:visible transition duration-300">
+
+                            Esta es una pista de ayuda para el campo de entrada.
+                            <svg class="absolute text-gray-800 h-2 w-full left-0 bottom-[-7px]" x="0px" y="0px"
+                                viewBox="0 0 255 255">
+                                <polygon class="fill-current" points="0,0 127.5,127.5 255,0" />
+                            </svg>
+                        </div>
+                    </div>
+
+
+                    <textarea id="mensaje" name="mensaje" rows="4" class="w-full h-40 p-3 border border-gray-300 rounded-3xl
+                    focus:outline-none focus:ring-2 focus:ring-blue-300 
+                    resize-y transition duration-150 ease-in-out" placeholder="Soy gaffer con amplia experiencia en...
+(500 caracteres max)" maxlength="500" required></textarea>
+
+                    <div class=" flex flex-col gap-4 pb-4">
+                        <button type="submit" class="bg-gradient-to-r from-[#23CCE8] to-[#0FF0DE]
+                        text-white font-bold py-3 px-8 rounded-3xl shadow-md 
+                        hover:shadow-xl hover:scale-105 transition duration-300 ease-in-out">Registrar
+                        </button>
                     </div>
                 </div>
+
             </form>
             <div class="flex gap-4 items-center justify-center pb-5">
                 <div id=indicatorStep1 class="w-2 h-2 bg-blue-400 rounded-full shadow-md"></div>
                 <div id="indicatorStep2" class="w-2 h-2 bg-gray-400 rounded-full shadow-md"></div>
+                <div id="indicatorStep3" class="w-2 h-2 bg-gray-400 rounded-full shadow-md"></div>
             </div>
             <p class="text-sm text-center">¿Si ya tienes cuenta?
-                <a href="index.html" class="text-blue-500">Inicia aquí</a>
+                <a href="login.html" class="text-blue-500">Inicia aquí</a>
             </p>
         </div>
     </div>
@@ -102,22 +149,22 @@
     <script src="services.js"></script>
     <script>
         let currentStep = 1;
-        const totalSteps = 2;
+        const totalSteps = 3;
         const form = document.getElementById("multipleForm")
         function actualizarUI() {
             const indicator = document.getElementById(`indicatorStep${currentStep}`)
-            for(i=1; i<=totalSteps;i++){
+            for (i = 1; i <= totalSteps; i++) {
                 if (i === currentStep) {
-                indicator.classList.remove('bg-gray-400');
-                indicator.classList.add('bg-blue-400');
-                
-            } else {
-                indicator.classList.remove('bg-blue-400');
-                indicator.classList.add('bg-gray-400');
+                    indicator.classList.remove('bg-gray-400');
+                    indicator.classList.add('bg-blue-400');
+
+                } else {
+                    indicator.classList.remove('bg-blue-400');
+                    indicator.classList.add('bg-gray-400');
+                }
+                console.log(indicator)
             }
-            console.log(indicator)
-            }
-            
+
         }
 
         function nextStep() {
@@ -132,14 +179,13 @@
             });
 
             if (allValid && currentStep < totalSteps) {
-                currentStep++;
+                const currentElement = document.getElementById(`step${currentStep}`)
+                currentElement.classList.add("hidden")
+                currentStep++
+                const nextElement = document.getElementById(`step${currentStep}`)
+                nextElement.classList.remove("hidden")
                 console.log(currentStep);
                 actualizarUI();
-                const step2 = document.getElementById("step2")
-                const step1 = document.getElementById("step1")
-
-                step1.classList.add("hidden")
-                step2.classList.remove("hidden")
             }
         }
     </script>

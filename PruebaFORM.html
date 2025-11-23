@@ -16,12 +16,45 @@
         <div class="flex justify-between mb-8">
             <div id="step-1-indicator"
                 class="w-1/2 p-2 text-center font-semibold text-white bg-blue-600 rounded-lg transition-colors">Paso 1:
-                Datos Personales</div>
+                Datos Personales
+            </div>
             <div id="step-2-indicator"
                 class="w-1/2 p-2 text-center font-semibold text-gray-500 bg-gray-200 rounded-lg ml-2 transition-colors">
-                Paso 2: Cuenta y Finalizar</div>
-        </div>
+                Paso 2: Cuenta y Finalizar
 
+                <div class="relative inline-block group">
+                    <span class="text-blue-500 cursor-help hover:text-blue-700">
+                        <div>
+                            <div class="inline-block mr-4">Ítem A</div>
+                            <div class="inline-block mr-4">Ítem B</div>
+                            <div class="inline-block">Ítem C</div>
+                        </div>
+                        <img src="https://cdn-icons-png.flaticon.com/512/1/1176.png" class="w-5" alt="" srcset="">
+                    </span>
+
+                    <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 
+              px-3 py-2 mb-2 w-max text-sm text-white bg-gray-800 
+              rounded-lg shadow-lg opacity-0 pointer-events-none 
+              group-hover:opacity-100 group-hover:visible transition duration-300">
+                        Esta es una pista de ayuda para el campo de entrada.
+                        <svg class="absolute text-gray-800 h-2 w-full left-0 bottom-[-7px]" x="0px" y="0px"
+                            viewBox="0 0 255 255">
+                            <polygon class="fill-current" points="0,0 127.5,127.5 255,0" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="h-40 w-64 bg-gray-200 flex flex-col justify-end p-2">
+            <div class="bg-blue-500 text-white p-2">
+                Div Superior (se ajusta al inicio)
+            </div>
+
+            <div class="bg-red-500 text-white p-2">
+                Div Inferior (pegado al fondo)
+            </div>
+        </div>
         <form id="multiStepForm">
 
             <div id="step1" class="step-content">
