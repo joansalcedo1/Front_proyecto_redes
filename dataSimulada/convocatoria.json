@@ -38,5 +38,35 @@
     "fecha_cierre": "2025-01-15",
     "numPersSolicitad": 1,
     "tituloProyecto": "El Eco del Viento"
+  },
+   {
+    "idConvocatoria": 5,
+    "tituloCon": "Fotografo 2D ",
+    "descripcion": "Corto experimental requiere fotografo 2D para secuencia de créditos.",
+    "areaRequerida": "Fotografía",
+    "estado": "Cerrada",
+    "fecha_cierre": "2025-01-15",
+    "numPersSolicitad": 1,
+    "tituloProyecto": "El Eco del Viento"
+  },
+   {
+    "idConvocatoria": 6,
+    "tituloCon": "Luces para corto",
+    "descripcion": "Corto experimental requiere luces",
+    "areaRequerida": "Gaffer",
+    "estado": "abierta",
+    "fecha_cierre": "2025-01-15",
+    "numPersSolicitad": 1,
+    "tituloProyecto": "El Eco del Viento"
+  },
+   {
+    "idConvocatoria": 7,
+    "tituloCon": "direccion de actores",
+    "descripcion": "Corto experimental requiere direccion de actores.",
+    "areaRequerida": "Animación",
+    "estado": "abierta",
+    "fecha_cierre": "2025-01-15",
+    "numPersSolicitad": 1,
+    "tituloProyecto": "El Eco del Viento"
   }
 ]
