@@ -10,9 +10,9 @@
 
 <body onload="getAllconvocatorias(); ">
     <!--este es el div del modal-->
-    <div id="modal-container" class="fixed inset-0 z-50 hidden">
+    <div id="modal-container" class=" fixed inset-0 z-50 hidden">
 
-        <div id="modal-overlay" class="fixed inset-0  backdrop-filter backdrop-blur-lg"></div>
+        <div id="modal-overlay" class="fixed inset-0 backdrop-filter backdrop-blur-lg"></div>
         <div class="flex items-center justify-center min-h-screen">
             <div id="modal-box" class="bg-white p-8 rounded-lg shadow-2xl relative max-w-lg w-full mx-4">
 
@@ -142,7 +142,6 @@
         <div id="dad_convocatorias" class="flex-grow p-4">
             <div class="h-full w-full rounded-3xl p-6">
                 <div id="dad_buscador_y_grid" class="flex flex-col h-full">
-
                     <div id="dad_buscador" class="flex-shrink-0">
                         <h1 class="py-5 text-3xl font-bold text-gray-800">Mis convocatorias</h1>
                         <div id="buscador" class="py-5 flex items-center gap-5">
@@ -165,10 +164,10 @@
                         </div>
                     </div>
 
-                    <div id="dad_convocatoriasGrid" class="flex-grow overflow-y-auto pt-4">
+                    <div id="dad_convocatoriasGrid" class="flex-grow overflow-y-auto px-4 pt-4">
                         <template id="convocatoria-template">
                             <div id="template-card"
-                                class="bg-white border border-[#CDE2E4] rounded-xl p-6 flex flex-col space-y-4 shadow-sm">
+                                class="transition transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg bg-white border border-[#CDE2E4] rounded-xl p-6 flex flex-col space-y-4 shadow-sm">
                                 <button id="btn_convocatoria">
                                     <div id="id_convocatoria" class="hidden"></div>
                                     <div id="head_card" class="space-y-2">
@@ -207,53 +206,69 @@
             </div>
         </div>
 
-        <div id="dad_postulantes" class="flex flex-row w-1/3 p-4 justify-end">
-            <div id="content_dad_postulantes" class="h-full w-full bg-[#CDE2E4] rounded-3xl p-6">
-                    <h3 class="py-5 text-3xl font-bold text-gray-800">Perfiles interesados</h3>
-                <div id="postulante-grid" class="grid grid-cols-1 gap-6 ">
-                    <template id="card_postulantes_template">
-                        <div class="bg-white w-full rounded-3xl">
-                            <div id="perfil_postulantes">
-                                <a href="./perfil.html">
-                                    <div class="flex items-center py-3 ps-4 rounded-xl">
-                                        <img id="img_postulante"
-                                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgGVslZPcLCSkPtpM5-XBaZ6-y8yTGdXd-Fg&s"
-                                            alt="Foto de perfil" class="w-14 h-14 rounded-full object-cover">
-                                        <div class="px-3">
-                                            <p id="nombre_postulante" class="font-bold text-sm"></p>
-                                            <p id="rol_postulante" class="text-gray-400 text-xs"></p>
-                                        </div>
+        <div id="dad_postulantes" class="w-1/3 h-full p-4">
+            <div id="content_dad_postulantes"
+                class="h-full w-full bg-[#CDE2E4] rounded-3xl p-6 flex-grow  overflow-y-auto ">
+                <h3 class=" text-2xl font-bold text-gray-800">Perfiles interesados</h3>
+                <h4 id="titulo_convocatoria" class="py-3 font-semibold"></h4>
+                <template id="card_postulantes_template">
+                    <div class="bg-white w-full rounded-3xl">
+                        <div id="id_postulante" class="hidden"></div>
+                        <div id="perfil_postulantes">
+                            <a href="./perfil.html">
+                                <div class="flex items-center py-3 ps-4 rounded-xl">
+                                    <img id="img_postulante"
+                                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgGVslZPcLCSkPtpM5-XBaZ6-y8yTGdXd-Fg&s"
+                                        alt="Foto de perfil" class="w-14 h-14 rounded-full object-cover">
+                                    <div class="px-3">
+                                        <p id="nombre_postulante" class="font-bold text-sm"></p>
+                                        <p id="rol_postulante" class="text-gray-400 text-xs"></p>
                                     </div>
-                                </a>
-                            </div>
-                            <div id="sombra negra" class="w-60 ms-3 border-b-2 border-gray-400 pt-2"></div>
-                            <div class="flex flex-col py-3 ps-6">
-                                <span class="inline-block">
-                                    <b>Estado: </b>
-                                    <div class="rounded-full w-4 h-4 border border-gray-500 inline-block align-middle">
-                                        <div
-                                            class="rounded-full w-3 h-3 bg-gray-500 relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                                        </div>
-                                    </div>
-                                    <b id="estado_postulante"
-                                        class="inline-block font-bold text-gray-500 align-middle ml-1"></b>
-
-                                </span>
-                            </div>
-                            <div class="flex justify-center space-x-7 pt-2 pb-4">
-                                <button onclick="rechazarPostulante()"
-                                    class="px-4 py-2 bg-green-500 rounded-3xl hover:bg-green-800 hover: text-white">
-                                    Aceptar
-                                </button>
-                                <button onclick="aceptarPostulante()"
-                                    class="px-4 py-2 bg-red-500 border rounded-3xl hover:bg-red-800 hover: text-white">
-                                    Rechazar
-                                </button>
-                            </div>
+                                </div>
+                            </a>
                         </div>
-                    </template>
+                        <div id="sombra negra" class="w-60 ms-3 border-b-2 border-gray-400 pt-2"></div>
+                        <div class="flex flex-col py-3 ps-6">
+                            <span class="inline-block">
+                                <b>Estado: </b>
+                                <div class="rounded-full w-4 h-4 border border-gray-500 inline-block align-middle">
+                                    <div
+                                        class="rounded-full w-3 h-3 bg-gray-500 relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                                    </div>
+                                </div>
+                                <b id="estado_postulante"
+                                    class="inline-block font-bold text-gray-500 align-middle ml-1"></b>
+
+                            </span>
+                        </div>
+                        <div class="flex justify-center space-x-7 pt-2 pb-4">
+                            <button id="aceptarPostulante" onclick="aceptarPostulante(this)"
+                                class="px-4 py-2 bg-green-500 rounded-3xl hover:bg-green-800 hover: text-white">
+                                Aceptar
+                            </button>
+                            <button id="rechazar" onclick="rechazarPostulante()"
+                                class="px-4 py-2 bg-red-500 border rounded-3xl hover:bg-red-800 hover: text-white">
+                                Rechazar
+                            </button>
+                        </div>
+                    </div>
+                </template>
+                <div id="postulante-grid" class="grid grid-cols-1 gap-6 ">
                 </div>
             </div>
+        </div>
+        
+    </div>
+    <div id="correct_toasted" class="hidden rounded-l-3xl text-white absolute bottom-7 right-0 z-999 w-1/4 h-30 bg-green-800">
+        <div id="toasted_message" class="font-semibold px-4 py-2 flex items-center ">
+            <span class="px-4 inline ">Usuario <p id="id_usuario" class="inline"></p> agregado correctamente</span> 
+            <img class="w-11 " src="https://cdn-icons-png.flaticon.com/512/5290/5290058.png" alt="">
+        </div>
+    </div>
+    <div id="noCorrect_toasted" class="hidden rounded-l-3xl text-white absolute bottom-7 right-0 z-999 w-1/4 h-30 bg-red-800">
+        <div id="toasted_message" class="font-semibold px-4 py-2 flex items-center">
+            <span class="px-4 inline ">Hubo un problema agregando el usuario <p id="id_usuario" class="inline"></p></span> 
+            <img class="w-11 " src="https://cdn-icons-png.flaticon.com/512/399/399274.png" alt="">
         </div>
     </div>
     <script src="./services.js"></script>
