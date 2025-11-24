@@ -1,11 +1,29 @@
+
+// BASE DE LA URL
+//cuando se suba a la vm se cambia el localhost por la direccion ip de la maquina del backen
 const URL_BASE = "http://localhost:"
+//DEFINIR PUERTOS DE CADA MICROSERVICIO
 const puertoConvocatoria = 3308
 const puertoPostulante = 3308
 
+//DEFINIR URL'S DE CADA MICROSERVICIO
+//en cada llamado de cada microservicio se le agrega lo necesario
 const URL_convocatorias = `${URL_BASE}${puertoConvocatoria}/apiRedes/convocatoria`
 const URL_postulantes = `${URL_BASE}${puertoPostulante}/proyecto_redes_capasback/postulante`
+
 //importante para renderizar la seccion de perfilesInteresados/participantes
 let convocatoriaSeleccionada = null;
+
+//función para el login y el register
+function togglePasswordVisibility() {
+    const passwordInput = document.getElementById('password')
+    const imgIcon = document.getElementById('iconPassword')
+    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+    const icon = passwordInput.getAttribute('type') === 'password' ? 'https://cdn-icons-png.flaticon.com/512/9759/9759281.png' : 'https://cdn-icons-png.flaticon.com/512/6684/6684701.png '
+    passwordInput.setAttribute('type', type);
+    imgIcon.setAttribute('src', icon)
+
+}
 
 //codigo para modificar la card seleccionada
 document.getElementById("convocatorias-grid").addEventListener("click", function (e) {
@@ -40,25 +58,24 @@ document.getElementById("convocatorias-grid").addEventListener("click", function
     renderSeccionConvocatoria();
 });
 
-
-function togglePasswordVisibility() {
-    const passwordInput = document.getElementById('password')
-    const imgIcon = document.getElementById('iconPassword')
-    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-    const icon = passwordInput.getAttribute('type') === 'password' ? 'https://cdn-icons-png.flaticon.com/512/9759/9759281.png' : 'https://cdn-icons-png.flaticon.com/512/6684/6684701.png '
-    passwordInput.setAttribute('type', type);
-    imgIcon.setAttribute('src', icon)
-
-}
-
-async function getAllconvocatorias() {
+//TRAE TODAS LAS CONVOCATORIAS HECHAS POR UN USUARIO 
+/*
+    Hay un problema con esta función y es que en el backend de las convocatorias no existe ninguna funcion para traer las convocatorias 
+    de un usuario en especifico. Así que creé un endpoint sugerido por chapeto para esta función se creé.
+    El puerto es el que esta actualmente (23/11/2025 4:07 pm) en la rama de juan david 
+    |
+    V
+    http://localhost:3308/apiRedes/convocatoria/:id_usuarioOrganizador
+ */
+//esta función se llama en el onload del body de misConvocatorias.html
+async function getAllconvocatorias(id_usuarioOrganizador) {
     const URL_DATOSIMULADOS = "./dataSimulada/convocatoria.json"
     const template = document.getElementById("convocatoria-template")
     const grid = document.getElementById("convocatorias-grid")
 
     try {
         //cambiar url cuando se conecté con el backend
-        //const res = await fetch(`${URL_convocatorias}/`) //=> consulta convocatorias, sacado de la documentacion de convocatorias
+        //const res = await fetch(`${URL_convocatorias}/${id_usuarioOrganizador}`) //=> consulta convocatorias, sacado de la documentacion de convocatorias
         const res = await fetch(URL_DATOSIMULADOS)
 
         if (!res.ok) {
@@ -105,7 +122,6 @@ async function getPostulantes_convocatoria(tituloConvocatoria) {
     |
     V
     http://localhost:3308/proyecto_redes_capasback/postulante/:nombre_convocatoria
-   
     */
 
     const URL_DATOSIMULADOS = "./dataSimulada/postulantesDeConvocatoria.json"
@@ -143,7 +159,7 @@ async function getPostulantes_convocatoria(tituloConvocatoria) {
 async function getParticipantes_convocatoria(idConvocatoria) {
     
     const URL_DATOSIMULADOS = "./dataSimulada/participantesDeConvocatoria.json";
-    const template = document.getElementById("card_postulantes_template");
+    const template = document.getElementById("card_participantes_template");
     const grid = document.getElementById("postulante-grid");
 
     try {
@@ -153,10 +169,10 @@ async function getParticipantes_convocatoria(idConvocatoria) {
 
         participantes.forEach(item => {
             const clone = template.content.cloneNode(true);
-            clone.querySelector("#id_postulante").textContent = item.idPart;
-            clone.querySelector("#nombre_postulante").textContent = item.nombre;
-            clone.querySelector("#rol_postulante").textContent = item.rol;
-            clone.querySelector("#estado_postulante").textContent = "Participante";
+            clone.querySelector("#id_participantes").textContent = item.idPart;
+            clone.querySelector("#nombre_participantes").textContent = item.nombre;
+            //clone.querySelector("#rol__participantes").textContent = item.rol;
+            clone.querySelector("#estado_participantes").textContent = "Aceptado";
             grid.appendChild(clone);
         });
 
