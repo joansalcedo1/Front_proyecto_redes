@@ -1,0 +1,12 @@
+{
+  "message": "Usuario creado exitosamente",
+  "id": 17,
+  "data": {
+    "nombre": "Camila",
+    "apellido": "Rojas",
+    "email": "camila.rojas@example.com",
+    "rol": "Fotografía",
+    "perfil": "Apasionada por la dirección de fotografía. Experiencia en cortometrajes.",
+    "password": "******"
+  }
+}

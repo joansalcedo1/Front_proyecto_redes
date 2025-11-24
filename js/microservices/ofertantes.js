@@ -5,7 +5,17 @@ let message=""
    para index.html
 =========================================================== */
 
+/*Ofertantes tendría 4 estados 
+disponible
+invitado
+confirmado
+rechazado
+*/
+
+//
+
 async function cargarPerfilesDisponibles() {
+    //ofertantes disponibles
     const URL_DATOSIMULADOS = "./dataSimulada/ofertantesGeneral.json";
     const template = document.getElementById("perfil-template");
     const container = document.getElementById("perfiles-container");

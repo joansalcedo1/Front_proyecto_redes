@@ -18,6 +18,7 @@ async function cargarDatos(id_usuarioOrganizador) {
         El puerto es el que esta actualmente (23/11/2025 4:07 pm) en la rama de juan david 
         |
         V
+
         http://localhost:3308/apiRedes/convocatoria/:id_usuarioOrganizador
      */
 
@@ -148,6 +149,7 @@ async function getParticipantes_convocatoria(idConvocatoria) {
     idConvocatoriaSeleccionada = idConvocatoria
     try {
         /* CAMBIAR CUANDO SE CONECTE CON EL BACKEND */
+        // CAMBIAR EL ENDPOINT CUANDO SE CREE NO ES PARTICIPANTES 
         //const res = await http("GET",`${URL_convocatorias}/participantes/${idConvocatoria}`)
         const res = await http("GET",URL_DATOSIMULADOS)
         const participantes = await res.json();

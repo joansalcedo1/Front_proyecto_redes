@@ -7,7 +7,7 @@ const puertoConvocatoria = 3308
 const puertoPostulante = 3308
 const puertoOfertante = 3303 
 const puertoProyecto = 3312 
-
+const puertoUsuarios= 3310 
 
 //DEFINIR URL'S DE CADA MICROSERVICIO
 //en cada llamado de cada microservicio se le agrega lo necesario
@@ -15,7 +15,7 @@ const URL_convocatorias = `${URL_BASE}${puertoConvocatoria}/apiRedes/convocatori
 const URL_postulantes = `${URL_BASE}${puertoPostulante}/proyecto_redes_capasback/postulante`
 const URL_ofertantes = `${URL_BASE}${puertoOfertante}/apiredes/ofertante`
 const URL_proyectos = `${URL_BASE}${puertoOfertante}/apiredes/proyecto`
-
+const URL_usuarios = `${URL_BASE}${puertoOfertante}/apiredes/usuarios`
 let idSesionUsuario =""
 
 
