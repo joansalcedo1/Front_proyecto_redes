@@ -1,0 +1,38 @@
+{
+  "ok": true,
+  "total": 4,
+  "data": [
+    {
+      "idPost": 12,
+      "usuarioPos": "laura.mejia",
+      "tituloConvocatoria": "Director de Fotografía – Proyecto Eclipse",
+      "fechaPost": "2025-11-23T20:41:12.000Z",
+      "mensajePres": "Tengo 5 años de experiencia y equipo propio.",
+      "estadoPost": "libre"
+    },
+    {
+      "idPost": 11,
+      "usuarioPos": "julian.castaneda",
+      "tituloConvocatoria": "Gaffer – Corto Sci-Fi Nebula",
+      "fechaPost": "2025-11-23T18:10:02.000Z",
+      "mensajePres": null,
+      "estadoPost": "aceptado"
+    },
+    {
+      "idPost": 10,
+      "usuarioPos": "maria.ospina",
+      "tituloConvocatoria": "Sonidista – Docu Amazonía",
+      "fechaPost": "2025-11-22T14:52:55.000Z",
+      "mensajePres": "Puedo trabajar noches y madrugadas.",
+      "estadoPost": "libre"
+    },
+    {
+      "idPost": 9,
+      "usuarioPos": "andres.ramirez",
+      "tituloConvocatoria": "Arte – Videoclip Urbano",
+      "fechaPost": "2025-11-21T09:30:44.000Z",
+      "mensajePres": "Tengo experiencia previa con este director.",
+      "estadoPost": "aceptado"
+    }
+  ]
+}

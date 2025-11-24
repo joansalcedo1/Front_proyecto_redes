@@ -1,11 +1,12 @@
 let message=""
 
 /* ==========================================================
-   PERFILES DISPONIBLES — DINÁMICO
+   PERFILES OFERTANTES DISPONIBLES — DINÁMICO 
+   para index.html
 =========================================================== */
 
 async function cargarPerfilesDisponibles() {
-    const URL_DATOSIMULADOS = "./dataSimulada/postulantesDeConvocatoria.json";
+    const URL_DATOSIMULADOS = "./dataSimulada/ofertantesGeneral.json";
     const template = document.getElementById("perfil-template");
     const container = document.getElementById("perfiles-container");
 
@@ -13,16 +14,17 @@ async function cargarPerfilesDisponibles() {
         const res = await fetch(URL_DATOSIMULADOS);
         if (!res.ok) throw new Error("Error al cargar perfiles");
 
-        const data = await res.json();
+        const ofertantes = await res.json();
         container.innerHTML = "";
 
-        data.forEach(item => {
+        ofertantes.forEach(item => {
             const clone = template.content.cloneNode(true);
 
-            clone.querySelector("#nombre_perfil").textContent = item.usuarioPos;
-            clone.querySelector("#rol_perfil").textContent = item.rolPos;
-            clone.querySelector("#disponibilidad_perfil").textContent =
-                item.fechaPost.substring(0, 10);
+            clone.querySelector("#nombre_ofertante").textContent = item.nombre_usuario;
+            clone.querySelector("#rol_ofertante").textContent = item.area;
+            clone.querySelector("#estado_ofertante").textContent= item.estado_of
+            clone.querySelector("#fecha_inicio_ofertante").textContent =item.fecha_inicio.substring(0, 10);
+            clone.querySelector("#fecha_fin_ofertante").textContent = item.fecha_fin.substring(0, 10);
 
             container.appendChild(clone);
         });
@@ -170,4 +172,5 @@ async function ignorarOfertante(buttonElement) {
         console.error("No se pudo encontrar el ID del postulante.");
     }
 }
+
 

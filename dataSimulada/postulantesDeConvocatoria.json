@@ -25,5 +25,26 @@
     "fechaPost": "2025-02-27T10:15:00.000Z",
     "mensajePres": "Disponible tiempo completo y con equipo propio.",
     "estadoPost": "libre"
+  },
+  {
+    "idPost": 6,
+    "usuarioPos": "carlos martinez",
+    "rolPos": "fotografía",
+    "tituloConvocatoria": "Corto Sci-Fi: Buscamos Director de Fotografía",
+    "fechaPost": "2025-02-27T10:15:00.000Z",
+    "mensajePres": "Disponible tiempo completo y con equipo propio.",
+    "estadoPost": "libre"
+  },
+  {
+    "idPost": 6,
+    "usuarioPos": "carlos martinez",
+    "rolPos": "fotografía",
+    "tituloConvocatoria": "Corto Sci-Fi: Buscamos Director de Fotografía",
+    "fechaPost": "2025-02-27T10:15:00.000Z",
+    "mensajePres": "Disponible tiempo completo y con equipo propio.",
+    "estadoPost": "libre"
   }
+ 
+ 
+ 
 ]

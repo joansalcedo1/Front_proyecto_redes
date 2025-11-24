@@ -1,0 +1,34 @@
+[
+  {
+    "id_oferta": 1,
+    "nombre_usuario": "Laura Martínez",
+    "area": "cámara",
+    "fecha_inicio": "2025-01-12",
+    "fecha_fin": "2025-02-10",
+    "estado_of": "disponible"
+  },
+  {
+    "id_oferta": 2,
+    "nombre_usuario": "Carlos Pérez",
+    "area": "luces",
+    "fecha_inicio": "2025-02-01",
+    "fecha_fin": "2025-03-15",
+    "estado_of": "disponible"
+  },
+  {
+    "id_oferta": 3,
+    "nombre_usuario": "Valentina Gómez",
+    "area": "dirección",
+    "fecha_inicio": "2025-01-05",
+    "fecha_fin": "2025-02-20",
+    "estado_of": "disponible"
+  },
+  {
+    "id_oferta": 4,
+    "nombre_usuario": "Juan David Torres",
+    "area": "producción",
+    "fecha_inicio": "2025-02-10",
+    "fecha_fin": "2025-03-09",
+    "estado_of": "disponible"
+  }
+]
