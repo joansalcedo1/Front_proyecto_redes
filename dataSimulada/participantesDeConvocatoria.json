@@ -1,0 +1,17 @@
+[
+  {
+    "idParticipante": 1,
+    "nombre": "Emilio Garcia",
+    "convID": 12
+  },
+  {
+    "idParticipante": 2,
+    "nombre": "Milton Garcia",
+    "convID": 12
+  },
+  {
+    "idParticipante": 3,
+    "nombre": "Mike Garcia",
+    "convID": 12
+  }
+]

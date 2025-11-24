@@ -1,0 +1,47 @@
+[
+  {
+    "idProyecto": 12,
+    "titulo": "Cortometraje — La Sombra del Jazz",
+    "organizador": "Michael rodriguez",
+    "descripcion": "Proyecto cinematográfico enfocado en iluminación expresiva y narrativa visual.",
+    "estado": "activo",
+    "url": "https://drive.google.com/jazz-sombra-doc",
+    "fechaInicio": "2025-02-10",
+    "fechaFin": "2025-04-18",
+    "lucesDep": 1,
+    "arteDep": 1,
+    "camaraDep": 1,
+    "postProdDep": 0,
+    "direccionDep": 1
+  },
+  {
+    "idProyecto": 19,
+    "titulo": "Documental — Voces del Río",
+    "organizador": "Michael rodriguez",
+    "descripcion": "Documental ambiental sobre comunidades alrededor del río Magdalena.askjd  asjdkadjaskdasdkasdj asjkdad sajkad jkad aksjd jkad jaks dajk djaks dkja dkja d jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj",
+    "estado": "finalizado",
+    "url": "https://drive.google.com/voces-rio",
+    "fechaInicio": "2024-09-01",
+    "fechaFin": "2024-12-10",
+    "lucesDep": 0,
+    "arteDep": 1,
+    "camaraDep": 1,
+    "postProdDep": 1,
+    "direccionDep": 1
+  },
+  {
+    "idProyecto": 25,
+    "titulo": "Videoclip — Latidos Urbanos",
+    "organizador": "Michael rodriguez",
+    "descripcion": "Producción de videoclip musical con enfoque en cámara y dirección artística.",
+    "estado": "activo",
+    "url": "https://drive.google.com/latidos-urbanos",
+    "fechaInicio": "2025-01-15",
+    "fechaFin": "2025-03-05",
+    "lucesDep": 1,
+    "arteDep": 1,
+    "camaraDep": 1,
+    "postProdDep": 1,
+    "direccionDep": 1
+  }
+]

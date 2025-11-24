@@ -1,0 +1,104 @@
+// BASE DE LA URL
+//cuando se suba a la vm se cambia el localhost por la direccion ip de la maquina del backen
+const URL_BASE = "http://localhost:"
+//DEFINIR PUERTOS DE CADA MICROSERVICIO
+const puertoConvocatoria = 3308
+const puertoPostulante = 3308
+const puertoOfertante = 3303 
+//DEFINIR URL'S DE CADA MICROSERVICIO
+//en cada llamado de cada microservicio se le agrega lo necesario
+const URL_convocatorias = `${URL_BASE}${puertoConvocatoria}/apiRedes/convocatoria`
+const URL_postulantes = `${URL_BASE}${puertoPostulante}/proyecto_redes_capasback/postulante`
+const URL_ofertante = `${URL_BASE}${puertoOfertante}/apiredes/ofertante`
+
+let idSesionUsuario =""
+
+//importante para renderizar la seccion de perfilesInteresados/participantes
+let convocatoriaSeleccionada = null;
+
+//tosated's basicos creados para confirmar mensajes
+const toastedCoreccto = document.querySelector("#correct_toasted");
+const toastedInCoreccto = document.querySelector("#inCorrect_toasted");
+
+//función para el login y el register
+function togglePasswordVisibility() {
+    const passwordInput = document.getElementById('password')
+    const imgIcon = document.getElementById('iconPassword')
+    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+    const icon = passwordInput.getAttribute('type') === 'password' ? 'https://cdn-icons-png.flaticon.com/512/9759/9759281.png' : 'https://cdn-icons-png.flaticon.com/512/6684/6684701.png '
+    passwordInput.setAttribute('type', type);
+    imgIcon.setAttribute('src', icon)
+
+}
+
+//============= Gestionar los toasted ============= 
+function gestorToastedCorrecto(message) {
+    //agrega el mensaje
+    toastedCoreccto.querySelector("#toasted_message_content").textContent = message
+    //Muestra el toasted
+    toastedCoreccto.classList.remove("hidden")
+    //lo cierra a los 5 segundos
+    setTimeout(() => {
+        toastedCoreccto.classList.add("hidden")
+    }, 5000);
+}
+function gestorToastedINCorrecto(message) {
+    //agrega el mensaje
+    toastedInCoreccto.querySelector("#toasted_message_content").textContent = message
+    //Muestra el toasted
+    toastedInCoreccto.classList.remove("hidden")
+    //lo cierra a los 5 segundos
+    setTimeout(() => {
+        toastedInCoreccto.classList.add("hidden")
+    }, 5000);
+}
+
+//=============  Modificar la card seleccionada ============= 
+document.getElementById("convocatorias-grid").addEventListener("click", function (e) {
+    const btn = e.target.closest("#btn_convocatoria");
+    if (!btn) return;
+
+    const card = btn.closest("#template-card");
+
+    // 1. Quitar selección previa
+    document.querySelectorAll("#template-card").forEach(c => {
+        c.classList.remove("ring-2", "ring-teal-600", "shadow-lg", "scale-[1.01]");
+    });
+
+    // 2. Activar estilo de la card seleccionada
+    card.classList.add("ring-2", "ring-teal-600", "shadow-lg", "scale-[1.01]");
+
+    // 3. Obtener ID y título de la convocatoria
+    const id = card.querySelector("#id_convocatoria").textContent;
+    const titulo = card.querySelector("#nombre_convocatoria").textContent;
+    const areaRequerida = card.querySelector("#area_requerida_convocatoria").textContent;
+    // 4. Mostrar nombre en el h4 externo
+    document.querySelector("#titulo_convocatoria").textContent = titulo;
+    
+    // 5. Limpiar postulantes previos
+    const gridPostulantes = document.getElementById("postulante-grid");
+    gridPostulantes.innerHTML = "";
+
+    // actualizar estado global
+    convocatoriaSeleccionada = { id, titulo, areaRequerida };
+    console.log(convocatoriaSeleccionada)
+    // llamar al renderizador general
+    renderSeccionConvocatoria();
+});
+
+/*=============  Hacer fetch =============
+USO ==> http("POST",URL_PROYECTOS,payload)         
+*/
+async function http(method, url, data) {
+
+    const options = { method, headers: {} };
+
+    if (data) {
+        options.headers["Content-Type"] = "application/json";
+        options.body = JSON.stringify(data);
+    }
+
+    const res = await fetch(url, options);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return res.json();
+}

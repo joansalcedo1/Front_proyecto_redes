@@ -1,0 +1,18 @@
+[
+  {
+    "id_oferta": 3,
+    "nombre_usuario": "Daniela Rubio",
+    "area": "director_fotografia",
+    "fecha_inicio": "24/11/2025",
+    "fecha_fin": "01/12/2025",
+    "estado_of": "disponible"
+  },
+  {
+    "id_oferta": 14,
+    "nombre_usuario": "Mateo Morales",
+    "area": "director_fotografia",
+    "fecha_inicio": "24/11/2025",
+    "fecha_fin": "10/12/2025",
+    "estado_of": "libre"
+  }
+]
