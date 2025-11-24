@@ -1,4 +1,38 @@
 let message=""
+
+/* ==========================================================
+   PERFILES DISPONIBLES — DINÁMICO
+=========================================================== */
+
+async function cargarPerfilesDisponibles() {
+    const URL_DATOSIMULADOS = "./dataSimulada/postulantesDeConvocatoria.json";
+    const template = document.getElementById("perfil-template");
+    const container = document.getElementById("perfiles-container");
+
+    try {
+        const res = await fetch(URL_DATOSIMULADOS);
+        if (!res.ok) throw new Error("Error al cargar perfiles");
+
+        const data = await res.json();
+        container.innerHTML = "";
+
+        data.forEach(item => {
+            const clone = template.content.cloneNode(true);
+
+            clone.querySelector("#nombre_perfil").textContent = item.usuarioPos;
+            clone.querySelector("#rol_perfil").textContent = item.rolPos;
+            clone.querySelector("#disponibilidad_perfil").textContent =
+                item.fechaPost.substring(0, 10);
+
+            container.appendChild(clone);
+        });
+
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+
 //============= obtener todas las ofertas por area =============
 async function getOfertantePorArea(areaRequerida) {
     /*
@@ -43,7 +77,7 @@ async function getOfertantePorArea(areaRequerida) {
     }
 }
 
-//============= aceptar los postulantes y convertirlos en participantes =============
+//============= invitar a un ofertante y convertirlos en participante =============
 async function invitarOfertante(buttonElement) {
 
     // se usa .closest() para encontrar el ancestro más cercano con la clase 'bg-white' (la tarjeta)
@@ -96,6 +130,7 @@ async function invitarOfertante(buttonElement) {
     }
 }
 
+//============= ignorar a un ofertante y BORRARLO DE LA TABLA =============
 async function ignorarOfertante(buttonElement) {
 
     // se usa .closest() para encontrar el ancestro más cercano con la clase 'bg-white' (la tarjeta)
@@ -109,7 +144,7 @@ async function ignorarOfertante(buttonElement) {
 
         try {
             /*DESCOMENTAR CUANDO SE CONECTE CON EL BACKEND y borrar lo indicado
-            const resultPostOfertante = http("PUT", `${URL_ofertante}/${idOf}`,"ocupado")
+            const resultPostOfertante = http("DELETE", `${URL_ofertante}/${idOf}`)
             if (resultPostOfertante.ok) {
                 message= `Usuario ${idOf} IGNORADO con exito`
                 cardContainer.classList.add("hidden")
