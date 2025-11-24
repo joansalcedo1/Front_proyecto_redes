@@ -48,41 +48,29 @@ async function invitarOfertante(buttonElement) {
 
     // se usa .closest() para encontrar el ancestro más cercano con la clase 'bg-white' (la tarjeta)
     const cardContainer = buttonElement.closest('.bg-white');
-    const idPostElement = cardContainer.querySelector("#id_ofertantes");
-    const idPost = idPostElement ? idPostElement.textContent.trim() : null;
+    const idOFElement = cardContainer.querySelector("#id_ofertantes");
+    const idOf = idOFElement ? idOFElement.textContent.trim() : null;
 
     let message = ""
-    const nuevoEstado = "aceptado"
-    if (idPost) {
-        console.log(`ID del Postulante Aceptado: ${idPost}`); // Esto debería ser 9
+    if (idOf) {
+        console.log(`ID del ofertante invitado: ${idOf}`); // Esto debería ser 9
 
         try {
             /*DESCOMENTAR CUANDO SE CONECTE CON EL BACKEND y borrar lo indicado
-            const resultPost = http("POST", URL_convocatorias,payload)
-            const resultPostParticipante = await axios.post(`${URL_convocatorias}/participantes`)
-            const resultPutPostulante = await axios.put(
-            `${URL_postulantes}/${idPost}/estado`,
-            { estado: nuevoEstado }   // <-- Aquí va el body
-        );
-
-            if (resultPostParticipante.ok & resultPutPostulante.ok) {
-                message= `Usuario ${idPost} aceptado con exito`
+            const resultPostOfertante = http("PUT", `${URL_ofertante}/${idOf}`,"confirmado")
+            if (resultPostOfertante.ok) {
+                message= `Usuario ${idOf} confirmado con exito`
                 cardContainer.classList.add("hidden")
-                toastedCoreccto.querySelector("#id_usuario").textContent = message
-                toastedCoreccto.classList.remove("hidden")
-                setTimeout(() => {
-                    toastedCoreccto.classList.add("hidden")
-                    // lo que quieres ejecutar
-                }, 5000);
+                gestorToastedCorrecto(message)
             }*/
             //-------------------------------------BORRAR CUANDO SE CONECTE CON EL BACKEND--------------------
-            message = `Usuario ${idPost} aceptado con exito`
+            message = `Usuario ${idOf} aceptado con exito`
             cardContainer.classList.add("hidden")
             gestorToastedCorrecto(message)
             //--------------------------------------------------------------------------------------------------
         } catch (error) {
             console.error(error)
-            message = `Hubo un error aceptando al usuario ${idPost}`
+            message = `Hubo un error aceptando al usuario ${idOf}`
             toastedInCoreccto.querySelector("#id_usuario").textContent = message
             toastedInCoreccto.classList.remove("hidden")
             setTimeout(() => {
@@ -95,3 +83,44 @@ async function invitarOfertante(buttonElement) {
         console.error("No se pudo encontrar el ID del postulante.");
     }
 }
+
+async function ignorarOfertante(buttonElement) {
+
+    // se usa .closest() para encontrar el ancestro más cercano con la clase 'bg-white' (la tarjeta)
+    const cardContainer = buttonElement.closest('.bg-white');
+    const idOFElement = cardContainer.querySelector("#id_ofertantes");
+    const idOf = idOFElement ? idOFElement.textContent.trim() : null;
+
+    let message = ""
+    if (idOf) {
+        console.log(`ID del ofertante ignorado: ${idOf}`); // Esto debería ser 9
+
+        try {
+            /*DESCOMENTAR CUANDO SE CONECTE CON EL BACKEND y borrar lo indicado
+            const resultPostOfertante = http("PUT", `${URL_ofertante}/${idOf}`,"ocupado")
+            if (resultPostOfertante.ok) {
+                message= `Usuario ${idOf} IGNORADO con exito`
+                cardContainer.classList.add("hidden")
+                gestorToastedCorrecto(message)
+            }*/
+            //-------------------------------------BORRAR CUANDO SE CONECTE CON EL BACKEND--------------------
+            message = `Usuario ${idOf} IGNORADO con exito`
+            cardContainer.classList.add("hidden")
+            gestorToastedCorrecto(message)
+            //--------------------------------------------------------------------------------------------------
+        } catch (error) {
+            console.error(error)
+            message = `Hubo un error aceptando al usuario ${idOf}`
+            toastedInCoreccto.querySelector("#id_usuario").textContent = message
+            toastedInCoreccto.classList.remove("hidden")
+            setTimeout(() => {
+                toastedInCoreccto.classList.add("hidden")
+                // lo que quieres ejecutar
+            }, 5000);
+        }
+
+    } else {
+        console.error("No se pudo encontrar el ID del postulante.");
+    }
+}
+
