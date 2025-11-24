@@ -3,7 +3,9 @@ const puertoConvocatoria = 3308
 const puertoPostulante = 3308
 
 const URL_convocatorias = `${URL_BASE}${puertoConvocatoria}/apiRedes/convocatoria`
-const URL_postulantes = `${URL_BASE}${puertoPostulante}/proyecto_redes_capasback/postulante/`
+const URL_postulantes = `${URL_BASE}${puertoPostulante}/proyecto_redes_capasback/postulante`
+//importante para renderizar la seccion de perfilesInteresados/participantes
+let convocatoriaSeleccionada = null;
 
 //codigo para modificar la card seleccionada
 document.getElementById("convocatorias-grid").addEventListener("click", function (e) {
@@ -31,8 +33,11 @@ document.getElementById("convocatorias-grid").addEventListener("click", function
     const gridPostulantes = document.getElementById("postulante-grid");
     gridPostulantes.innerHTML = "";
 
-    // 6. Llamar microservicio
-    getPostulantes_convocatoria(id);
+    // actualizar estado global
+    convocatoriaSeleccionada = { id, titulo };
+
+    // llamar al renderizador general
+    renderSeccionConvocatoria();
 });
 
 
@@ -47,7 +52,6 @@ function togglePasswordVisibility() {
 }
 
 async function getAllconvocatorias() {
-    //const URL_convocatorias = `${URL_BASE}${puertoConvocatoria}/apiRedes/convocatoria`
     const URL_DATOSIMULADOS = "./dataSimulada/convocatoria.json"
     const template = document.getElementById("convocatoria-template")
     const grid = document.getElementById("convocatorias-grid")
@@ -93,22 +97,26 @@ async function getAllconvocatorias() {
     }
 }
 
-async function getPostulantes_convocatoria(idConvocatoria) {
+async function getPostulantes_convocatoria(tituloConvocatoria) {
     /*
     Hay un problema con esta función y es que en el backend de los postulantes no existe ninguna funcion para traer los postulantes
     de una convocatoria en especifico. Así que creé un endpoint sugerido por chapeto para esta función para cuando se creé.
     El puerto es el que esta actualmente (23/11/2025 4:07 pm) en la rama de juan david 
     |
     V
-    http://localhost:3308/api/postulantes/Corto/:idConvocatoria
-    const URL_postulantesXconvocatoria = await fetch(`${URL_BASE}${puertoPostulante}/apiRedes/postulantes/Corto/:titulo_convocatoria`)
+    http://localhost:3308/proyecto_redes_capasback/postulante/:nombre_convocatoria
+   
     */
 
     const URL_DATOSIMULADOS = "./dataSimulada/postulantesDeConvocatoria.json"
     const template = document.getElementById("card_postulantes_template")
     const grid = document.getElementById("postulante-grid")
+    //codigo para verificar si se muestran los participantes o los postulantes
+    const selectSeccion = document.getElementById("verSeccion");
+
     try {
         //cambiar url cuando se conecté con el backend
+        //const res = await axios.fetch(`${URL_postulantes}/${tituloConvocatoria}`)
         const res = await fetch(URL_DATOSIMULADOS)
 
         if (!res.ok) {
@@ -132,6 +140,50 @@ async function getPostulantes_convocatoria(idConvocatoria) {
 
 }
 
+async function getParticipantes_convocatoria(idConvocatoria) {
+    
+    const URL_DATOSIMULADOS = "./dataSimulada/participantesDeConvocatoria.json";
+    const template = document.getElementById("card_postulantes_template");
+    const grid = document.getElementById("postulante-grid");
+
+    try {
+        //const res = await axios.fetch(`${URL_convocatorias}/participantes/${idConvocatoria}`)
+        const res = await fetch(URL_DATOSIMULADOS);
+        const participantes = await res.json();
+
+        participantes.forEach(item => {
+            const clone = template.content.cloneNode(true);
+            clone.querySelector("#id_postulante").textContent = item.idPart;
+            clone.querySelector("#nombre_postulante").textContent = item.nombre;
+            clone.querySelector("#rol_postulante").textContent = item.rol;
+            clone.querySelector("#estado_postulante").textContent = "Participante";
+            grid.appendChild(clone);
+        });
+
+    } catch (err) {
+        console.error("Error cargando participantes:", err);
+    }
+}
+
+
+async function renderSeccionConvocatoria() {
+    if (!convocatoriaSeleccionada) return;
+
+    const gridPostulantes = document.getElementById("postulante-grid");
+    const selectSeccion = document.getElementById("verSeccion");
+    const opcion = selectSeccion.value;
+
+    // limpiar grid
+    gridPostulantes.innerHTML = "";
+
+    console.log("Renderizando sección:", opcion);
+
+    if (opcion === "perfiles interesados") {
+        await getPostulantes_convocatoria(convocatoriaSeleccionada.titulo);
+    } else {
+        await getParticipantes_convocatoria(convocatoriaSeleccionada.id);
+    }
+}
 
 async function aceptarPostulante(buttonElement) {
     // se usa .closest() para encontrar el ancestro más cercano con la clase 'bg-white' (la tarjeta)
@@ -140,35 +192,47 @@ async function aceptarPostulante(buttonElement) {
     const idPost = idPostElement ? idPostElement.textContent.trim() : null;
     const toastedCoreccto = document.querySelector("#correct_toasted");
     const toastedInCoreccto = document.querySelector("#inCorrect_toasted");
-
+    let message = ""
+    const nuevoEstado = "aceptado"
     if (idPost) {
         console.log(`ID del Postulante Aceptado: ${idPost}`); // Esto debería ser 9
-        cardContainer.classList.add("hidden")
-        toastedCoreccto.querySelector("#id_usuario").textContent = idPost
-        toastedCoreccto.classList.remove("hidden")
-        toastedCoreccto.classList.add("animate-fadeIn");
-        setTimeout(() => {
-            toastedCoreccto.classList.add("hidden")
-            // lo que quieres ejecutar
-        }, 5000);
-        try {
 
-            //const URL_convocatorias = await axios.post(`${URL_BASE}${puertoConvocatoria}/apiRedes/convocatoria/participantes`)
-            /*const resultPostParticipante = await axios.post(`${URL_convocatorias}/participantes`)
-            const resultPutPostulante = await axios.put(`${URL_postulantes}/${idPost}/estado`)
-            if(resultPostParticipante.ok & resultPutPostulante.ok){
-                cardContainer.classList.add("hidden");
+        try {
+            /*DESCOMENTAR CUANDO SE CONECTE CON EL BACKEND y borrar lo indicado
+            const resultPostParticipante = await axios.post(`${URL_convocatorias}/participantes`)
+            const resultPutPostulante = await axios.put(
+            `${URL_postulantes}/${idPost}/estado`,
+            { estado: nuevoEstado }   // <-- Aquí va el body
+        );
+
+            if (resultPostParticipante.ok & resultPutPostulante.ok) {
+                message= `Usuario ${idPost} aceptado con exito`
+                cardContainer.classList.add("hidden")
+                toastedCoreccto.querySelector("#id_usuario").textContent = message
+                toastedCoreccto.classList.remove("hidden")
+                setTimeout(() => {
+                    toastedCoreccto.classList.add("hidden")
+                    // lo que quieres ejecutar
+                }, 5000);
             }*/
-        } catch (error) {
-            console.error(error)
-            toastedCoreccto.querySelector("#id_usuario").textContent = idPost
+            //-------------------------------------BORRAR CUANDO SE CONECTE CON EL BACKEND--------------------
+            message = `Usuario ${idPost} aceptado con exito`
+            cardContainer.classList.add("hidden")
+            toastedCoreccto.querySelector("#toasted_message_content").textContent = message
             toastedCoreccto.classList.remove("hidden")
-            toastedCoreccto.classList.add("animate-fadeIn");
             setTimeout(() => {
                 toastedCoreccto.classList.add("hidden")
+            }, 5000);
+            //--------------------------------------------------------------------------------------------------
+        } catch (error) {
+            console.error(error)
+            message = `Hubo un error aceptando al usuario ${idPost}`
+            toastedInCoreccto.querySelector("#id_usuario").textContent = message
+            toastedInCoreccto.classList.remove("hidden")
+            setTimeout(() => {
+                toastedInCoreccto.classList.add("hidden")
                 // lo que quieres ejecutar
             }, 5000);
-            alert("Hubo un error aceptando al postulante", error)
         }
 
     } else {
@@ -176,14 +240,48 @@ async function aceptarPostulante(buttonElement) {
     }
 }
 
-// Haz el mismo cambio para rechazarPostulante
+/*
+    Hay un problema con esta función(rechazarPostulante) y es que en el backend de los postulantes no existe ninguna funcion para traer los postulantes
+    de una convocatoria en especifico. Así que creé un endpoint sugerido por chapeto para esta función para cuando se creé. La idea es eliminar el postulante de la tabla
+    El puerto es el que esta actualmente (23/11/2025 4:07 pm) en la rama de juan david 
+    |
+    V
+    http://localhost:3308/proyecto_redes_capasback/postulante/:idPostulante
+   
+    */
 async function rechazarPostulante(buttonElement) {
+    // se usa .closest() para encontrar el ancestro más cercano con la clase 'bg-white' (la tarjeta)
     const cardContainer = buttonElement.closest('.bg-white');
     const idPostElement = cardContainer.querySelector("#id_postulante");
     const idPost = idPostElement ? idPostElement.textContent.trim() : null;
+    const toastedCoreccto = document.querySelector("#correct_toasted");
+    const toastedInCoreccto = document.querySelector("#inCorrect_toasted");
 
     if (idPost) {
         console.log(`ID del Postulante Rechazado: ${idPost}`);
-        // ... (Tu lógica de rechazo aquí) ...
+        /*DESCOMENTAR CUANDO SE CONECTE CON EL BACKEND Y BORRAR LO INDICADO
+        try {
+            const resultRemovePostulacion = axios.remove(`${URL_postulantes}/${idPost}`)
+            if (resultRemovePostulacion.ok) {
+                toastedCoreccto.querySelector("#toasted_message_content").textContent = message
+                toastedCoreccto.classList.remove("hidden")
+                setTimeout(() => {
+                toastedCoreccto.classList.add("hidden")
+                }, 5000);
+            }
+        } catch (error) {
+            console.error(error)
+            message= `Hubo un error rechazando al usuario ${idPost}`
+            toastedInCoreccto.querySelector("#toasted_message_content").textContent = message
+        }*/
+        //------------------------------------ BORRAR CUANDO SE CONECTE CON EL BACKEND ------------------------
+        message = `Usuario ${idPost} RECHAZADO con exito`
+        cardContainer.classList.add("hidden")
+        toastedCoreccto.querySelector("#toasted_message_content").textContent = message
+        toastedCoreccto.classList.remove("hidden")
+        setTimeout(() => {
+            toastedCoreccto.classList.add("hidden")
+        }, 5000);
+        //----------------------------------------------------------------------------------------------
     }
 }

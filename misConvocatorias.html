@@ -209,7 +209,10 @@
         <div id="dad_postulantes" class="w-1/3 h-full p-4">
             <div id="content_dad_postulantes"
                 class="h-full w-full bg-[#CDE2E4] rounded-3xl p-6 flex-grow  overflow-y-auto ">
-                <h3 class=" text-2xl font-bold text-gray-800">Perfiles interesados</h3>
+                <select id="verSeccion" name="verSeccion" class="text-2xl font-bold text-gray-800 rounded-2xl px-4 py-2 bg-[#CDE2E4]">
+                    <option value="perfiles interesados">Perfiles interesados</option>
+                    <option value="participantes">Participantes</option>
+                </select>
                 <h4 id="titulo_convocatoria" class="py-3 font-semibold"></h4>
                 <template id="card_postulantes_template">
                     <div class="bg-white w-full rounded-3xl">
@@ -246,7 +249,7 @@
                                 class="px-4 py-2 bg-green-500 rounded-3xl hover:bg-green-800 hover: text-white">
                                 Aceptar
                             </button>
-                            <button id="rechazar" onclick="rechazarPostulante()"
+                            <button id="rechazar" onclick="rechazarPostulante(this)"
                                 class="px-4 py-2 bg-red-500 border rounded-3xl hover:bg-red-800 hover: text-white">
                                 Rechazar
                             </button>
@@ -257,17 +260,20 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
-    <div id="correct_toasted" class="hidden rounded-l-3xl text-white absolute bottom-7 right-0 z-999 w-1/4 h-30 bg-green-800">
-        <div id="toasted_message" class="font-semibold px-4 py-2 flex items-center ">
-            <span class="px-4 inline ">Usuario <p id="id_usuario" class="inline"></p> agregado correctamente</span> 
+    <div id="correct_toasted"
+        class="hidden rounded-l-3xl text-white absolute bottom-7 right-0 z-999 w-1/4 h-30 bg-green-800">
+        <div id="dad_toasted_message" class="font-semibold px-4 py-2 flex items-center ">
+            <span id="toasted_message_content" class="px-4 inline "></span>
             <img class="w-11 " src="https://cdn-icons-png.flaticon.com/512/5290/5290058.png" alt="">
         </div>
     </div>
-    <div id="noCorrect_toasted" class="hidden rounded-l-3xl text-white absolute bottom-7 right-0 z-999 w-1/4 h-30 bg-red-800">
+    <div id="noCorrect_toasted"
+        class="hidden rounded-l-3xl text-white absolute bottom-7 right-0 z-999 w-1/4 h-30 bg-red-800">
         <div id="toasted_message" class="font-semibold px-4 py-2 flex items-center">
-            <span class="px-4 inline ">Hubo un problema agregando el usuario <p id="id_usuario" class="inline"></p></span> 
+            <span class="px-4 inline ">Hubo un problema agregando el usuario <p id="id_usuario" class="inline"></p>
+                </span>
             <img class="w-11 " src="https://cdn-icons-png.flaticon.com/512/399/399274.png" alt="">
         </div>
     </div>
