@@ -1,14 +1,4 @@
-// BASE DE LA URL
-//cuando se suba a la vm se cambia el localhost por la direccion ip de la maquina del backen
-const URL_BASE = "http://localhost:"
-//DEFINIR PUERTOS DE CADA MICROSERVICIO
-const puertoConvocatoria = 3308
-const puertoPostulante = 3308
-//DEFINIR URL'S DE CADA MICROSERVICIO
-//en cada llamado de cada microservicio se le agrega lo necesario
-const URL_convocatorias = `${URL_BASE}${puertoConvocatoria}/apiRedes/convocatoria`
-const URL_postulantes = `${URL_BASE}${puertoPostulante}/proyecto_redes_capasback/postulante`
-
+let idConvocatoriaSeleccionada = ""
 //función para crear una convocatoria
 async function postConvocatoria(e) {
     const form = document.querySelector("#modal-container form");
@@ -28,20 +18,18 @@ async function postConvocatoria(e) {
     const areaRequerida = document.getElementById("area_requerida_input").value
     const cantidadConvocatoria = document.getElementById("cantidad_convocatoria_input").value
     const fechaFin = document.getElementById("fecha_fin_input").value
-
+    const payload = {
+        tituloCon: tituloConvocatoria,
+        descripcion: descripcionConvocatoria,
+        areaRequerida: areaRequerida,
+        estado: "abierta",
+        fecha_cierre: fechaFin,
+        numPersSolicitad: cantidadConvocatoria,
+        tituloProyecto: nombreProyecto
+    }
     console.log({ tituloConvocatoria, descripcionConvocatoria, nombreProyecto, areaRequerida, cantidadConvocatoria, fechaFin });
     try {
-        /*const resultPost = await axios.put(URL_convocatorias,
-            {
-                tituloCon: tituloConvocatoria,
-                descripcion: descripcionConvocatoria,
-                areaRequerida: areaRequerida,
-                estado: "abierta",
-                fecha_cierre: fechaFin,
-                numPersSolicitad: cantidadConvocatoria,
-                tituloProyecto: nombreProyecto
-
-            })
+        /*const resultPost = http("POST", URL_convocatorias,payload)
         if (resultPost.ok) {
             const idNuevaConv = resultPost.idConvocatoria
             message= `Convocatoria ${tituloConvocatoria} con id ${idNuevaConv} creada con exito`
@@ -81,7 +69,8 @@ async function getAllconvocatoriasDeUnUsuario(id_usuarioOrganizador) {
 
     try {
         //cambiar url cuando se conecté con el backend
-        //const res = await fetch(`${URL_convocatorias}/${id_usuarioOrganizador}`) //=> consulta convocatorias, sacado de la documentacion de convocatorias
+
+        //const res = http("GET",`${URL_convocatorias}/${id_usuarioOrganizador}`) //=> consulta convocatorias, sacado de la documentacion de convocatorias
         const res = await fetch(URL_DATOSIMULADOS)
 
         if (!res.ok) {
@@ -122,15 +111,13 @@ async function getAllconvocatoriasDeUnUsuario(id_usuarioOrganizador) {
 
 //  Esta función trae los participantes de la convocatoria
 async function getParticipantes_convocatoria(idConvocatoria) {
-
-
     const URL_DATOSIMULADOS = "./dataSimulada/participantesDeConvocatoria.json";
     const template = document.getElementById("card_participantes_template");
     const grid = document.getElementById("postulante-grid");
-
+    idConvocatoriaSeleccionada= idConvocatoria
     try {
         /* CAMBIAR CUANDO SE CONECTE CON EL BACKEND */
-        //const res = await axios.fetch(`${URL_convocatorias}/participantes/${idConvocatoria}`)
+        //const res = http("GET",`${URL_convocatorias}/participantes/${idConvocatoria}`)
         const res = await fetch(URL_DATOSIMULADOS);
         const participantes = await res.json();
 
@@ -165,7 +152,7 @@ async function getPostulantes_convocatoria(tituloConvocatoria) {
 
     try {
         /* CAMBIAR CUANDO SE CONECTE CON EL BACKEND */
-        //const res = await axios.fetch(`${URL_postulantes}/${tituloConvocatoria}`)
+        //const res = http("GET",`${URL_postulantes}/${tituloConvocatoria}`)
         const res = await fetch(URL_DATOSIMULADOS)
 
         if (!res.ok) {
@@ -192,11 +179,15 @@ async function getPostulantes_convocatoria(tituloConvocatoria) {
 //funcion para aceptar los postulantes y convertirlos en participantes
 async function aceptarPostulante(buttonElement) {
 
-
     // se usa .closest() para encontrar el ancestro más cercano con la clase 'bg-white' (la tarjeta)
     const cardContainer = buttonElement.closest('.bg-white');
     const idPostElement = cardContainer.querySelector("#id_postulante");
     const idPost = idPostElement ? idPostElement.textContent.trim() : null;
+    const nombrePostulante = cardContainer.querySelector("#nombre_postulante")
+    const payload ={
+        nombre: nombrePostulante,
+        idConvocatoria: idConvocatoriaSeleccionada
+    }
 
     let message = ""
     const nuevoEstado = "aceptado"
@@ -205,10 +196,8 @@ async function aceptarPostulante(buttonElement) {
 
         try {
             /*DESCOMENTAR CUANDO SE CONECTE CON EL BACKEND y borrar lo indicado
-            const resultPostParticipante = await axios.post(`${URL_convocatorias}/participantes`)
-            const resultPutPostulante = await axios.put(
-            `${URL_postulantes}/${idPost}/estado`,
-            { estado: nuevoEstado }   // <-- Aquí va el body
+            const resultPostParticipantes = http("POST",`${URL_convocatorias}/participantes`,payload)
+            const resultPutPostulante = http("PUT",`${URL_postulantes}/${idPost}/estado`,{ estado: nuevoEstado })
         );
 
             if (resultPostParticipante.ok & resultPutPostulante.ok) {
@@ -264,7 +253,7 @@ async function rechazarPostulante(buttonElement) {
         console.log(`ID del Postulante Rechazado: ${idPost}`);
         /*DESCOMENTAR CUANDO SE CONECTE CON EL BACKEND Y BORRAR LO INDICADO
         try {
-            const resultRemovePostulacion = axios.remove(`${URL_postulantes}/${idPost}`)
+            const resultRemovePostulacion = http("DELETE",`${URL_postulantes}/${idPost}`)
             if (resultRemovePostulacion.ok) {
                 gestorToastedCorrecto(message)
             }
@@ -280,3 +269,4 @@ async function rechazarPostulante(buttonElement) {
         //----------------------------------------------------------------------------------------------
     }
 }
+

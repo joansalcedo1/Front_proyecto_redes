@@ -1,3 +1,18 @@
+// BASE DE LA URL
+//cuando se suba a la vm se cambia el localhost por la direccion ip de la maquina del backen
+const URL_BASE = "http://localhost:"
+//DEFINIR PUERTOS DE CADA MICROSERVICIO
+const puertoConvocatoria = 3308
+const puertoPostulante = 3308
+const puertoOfertante = 3303 
+//DEFINIR URL'S DE CADA MICROSERVICIO
+//en cada llamado de cada microservicio se le agrega lo necesario
+const URL_convocatorias = `${URL_BASE}${puertoConvocatoria}/apiRedes/convocatoria`
+const URL_postulantes = `${URL_BASE}${puertoPostulante}/proyecto_redes_capasback/postulante`
+const URL_ofertante = `${URL_BASE}${puertoOfertante}/apiredes/ofertante`
+
+
+
 //importante para renderizar la seccion de perfilesInteresados/participantes
 let convocatoriaSeleccionada = null;
 
@@ -77,17 +92,17 @@ document.getElementById("convocatorias-grid").addEventListener("click", function
     // 3. Obtener ID y título de la convocatoria
     const id = card.querySelector("#id_convocatoria").textContent;
     const titulo = card.querySelector("#nombre_convocatoria").textContent;
-
+    const areaRequerida = card.querySelector("#area_requerida_convocatoria").textContent;
     // 4. Mostrar nombre en el h4 externo
     document.querySelector("#titulo_convocatoria").textContent = titulo;
-
+    
     // 5. Limpiar postulantes previos
     const gridPostulantes = document.getElementById("postulante-grid");
     gridPostulantes.innerHTML = "";
 
     // actualizar estado global
-    convocatoriaSeleccionada = { id, titulo };
-
+    convocatoriaSeleccionada = { id, titulo, areaRequerida };
+    console.log(convocatoriaSeleccionada)
     // llamar al renderizador general
     renderSeccionConvocatoria();
 });
@@ -98,16 +113,39 @@ function renderSeccionConvocatoria() {
     if (!convocatoriaSeleccionada) return;
 
     const gridPostulantes = document.getElementById("postulante-grid");
-    const selectSeccion = document.getElementById("verSeccion");
-    selectSeccion.onchange = async (e) => {
+    const elementoSelectSeccion = document.getElementById("verSeccion");
+    elementoSelectSeccion.onchange = async (e) => {
         e.preventDefault()
         gridPostulantes.innerHTML = "";
-        const opcion = selectSeccion.value;
+        const opcion = elementoSelectSeccion.value;
         console.log("Renderizando sección:", opcion);
-        if (opcion === "perfiles interesados") {
-            await getPostulantes_convocatoria(convocatoriaSeleccionada.titulo);
-        } else {
-            await getParticipantes_convocatoria(convocatoriaSeleccionada.id);
+        switch (opcion) {
+            case "ofertantes":
+                await getOfertantePorArea(convocatoriaSeleccionada.areaRequerida)
+                break;
+            case "perfiles interesados":
+                await getPostulantes_convocatoria(convocatoriaSeleccionada.titulo);
+                break;
+            case "participantes":
+                await getParticipantes_convocatoria(convocatoriaSeleccionada.id);
+                break;
+            
+            default:
+
+                break;
         }
     }
+}
+
+async function http(method, url, data) {
+    const options = { method, headers: {} };
+
+    if (data) {
+        options.headers["Content-Type"] = "application/json";
+        options.body = JSON.stringify(data);
+    }
+
+    const res = await fetch(url, options);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return res.json();
 }
