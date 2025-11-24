@@ -10,22 +10,22 @@ const overlay = document.getElementById('modal-overlay');
 
 //=============  TRAE TODAS LAS CONVOCATORIAS HECHAS POR UN USUARIO ============= 
 async function cargarDatos(id_usuarioOrganizador) {
-//se llama en el script final de misConvocatorias.html
+    //se llama en el script final de misConvocatorias.html
 
-/*
-    Hay un problema con esta función y es que en el backend de las convocatorias no existe ninguna funcion para traer las convocatorias 
-    de un usuario en especifico. Así que creé un endpoint sugerido por chapeto para esta función se creé.
-    El puerto es el que esta actualmente (23/11/2025 4:07 pm) en la rama de juan david 
-    |
-    V
-    http://localhost:3308/apiRedes/convocatoria/:id_usuarioOrganizador
- */
+    /*
+        Hay un problema con esta función y es que en el backend de las convocatorias no existe ninguna funcion para traer las convocatorias 
+        de un usuario en especifico. Así que creé un endpoint sugerido por chapeto para esta función se creé.
+        El puerto es el que esta actualmente (23/11/2025 4:07 pm) en la rama de juan david 
+        |
+        V
+        http://localhost:3308/apiRedes/convocatoria/:id_usuarioOrganizador
+     */
 
     const URL_DATOSIMULADOS = "./dataSimulada/convocatoria.json"
     try {
         //DESCOMENTAR CUANDO SE CONECTE CON EL BACKEND 
-        //const res = http("GET",`${URL_convocatorias}/${id_usuarioOrganizador}`) //=> consulta convocatorias, sacado de la documentacion de convocatorias
-        const res = await fetch(URL_DATOSIMULADOS)
+        //const res = await http("GET",`${URL_convocatorias}/${id_usuarioOrganizador}`) //=> consulta convocatorias, sacado de la documentacion de convocatorias
+        const res = await http("GET", URL_DATOSIMULADOS)
         if (!res.ok) {
             throw new Error(`Error al cargar los datos: ${res.statusText}`);
         }
@@ -107,17 +107,21 @@ async function postConvocatoria(e) {
         tituloProyecto: nombreProyecto
     }
     try {
-        /*const resultPost = http("POST", URL_convocatorias,payload)
+        /* DESCOMENTAR CUANDO SE CONECTE AL BACKEND Y BORRAR LO INDICADO
+        const resultPost = await http("POST", URL_convocatorias,payload)
         if (resultPost.ok) {
             const idNuevaConv = resultPost.idConvocatoria
             message= `Convocatoria ${tituloConvocatoria} con id ${idNuevaConv} creada con exito`
             gestorToastedCorrecto(message)
+            convocatorias.push(payload)
+            renderConvocatorias(convocatorias)
         }*/
-        const result = await fetch(URL_DATOSIMULADOS)
+        //------------------------------------------------BORRAR------------------------
+        const result = await http("GET", URL_DATOSIMULADOS)
         const data = await result.json();
         convocatorias.push(payload)
         renderConvocatorias(convocatorias)
-
+        //------------------------------------------------------------------------------
         if (data) {
             const idNuevaConv = data.idConvocatoria
 
@@ -138,16 +142,14 @@ async function postConvocatoria(e) {
 async function getParticipantes_convocatoria(idConvocatoria) {
 
     //se llama en utilites 
-
-
     const URL_DATOSIMULADOS = "./dataSimulada/participantesDeConvocatoria.json";
     const template = document.getElementById("card_participantes_template");
     const grid = document.getElementById("postulante-grid");
     idConvocatoriaSeleccionada = idConvocatoria
     try {
         /* CAMBIAR CUANDO SE CONECTE CON EL BACKEND */
-        //const res = http("GET",`${URL_convocatorias}/participantes/${idConvocatoria}`)
-        const res = await fetch(URL_DATOSIMULADOS);
+        //const res = await http("GET",`${URL_convocatorias}/participantes/${idConvocatoria}`)
+        const res = await http("GET",URL_DATOSIMULADOS)
         const participantes = await res.json();
 
         participantes.forEach(item => {
@@ -185,8 +187,8 @@ async function getPostulantes_convocatoria(tituloConvocatoria) {
 
     try {
         /* CAMBIAR CUANDO SE CONECTE CON EL BACKEND */
-        //const res = http("GET",`${URL_postulantes}/${tituloConvocatoria}`)
-        const res = await fetch(URL_DATOSIMULADOS)
+        //const res = await http("GET",`${URL_postulantes}/${tituloConvocatoria}`)
+        const res = await http("GET",URL_DATOSIMULADOS)
 
         if (!res.ok) {
             throw new Error(`Error al cargar los datos: ${res.statusText}`);
@@ -230,9 +232,11 @@ async function aceptarPostulante(buttonElement) {
         console.log(`ID del Postulante Aceptado: ${idPost}`); // Esto debería ser 9
 
         try {
-            /*DESCOMENTAR CUANDO SE CONECTE CON EL BACKEND y borrar lo indicado
-            const resultPostParticipantes = http("POST",`${URL_convocatorias}/participantes`,payload)
-            const resultPutPostulante = http("PUT",`${URL_postulantes}/${idPost}/estado`,{ estado: nuevoEstado })
+            /*DESCOMENTAR CUANDO SE CONECTE CON EL BACKEND y BORRAR LO INDICADO
+
+
+            const resultPostParticipantes = await http("POST",`${URL_convocatorias}/participantes`,payload)
+            const resultPutPostulante = await http("PUT",`${URL_postulantes}/${idPost}/estado`,{ estado: nuevoEstado })
         );
 
             if (resultPostParticipante.ok & resultPutPostulante.ok) {
@@ -291,7 +295,7 @@ async function rechazarPostulante(buttonElement) {
         console.log(`ID del Postulante Rechazado: ${idPost}`);
         /*DESCOMENTAR CUANDO SE CONECTE CON EL BACKEND Y BORRAR LO INDICADO
         try {
-            const resultRemovePostulacion = http("DELETE",`${URL_postulantes}/${idPost}`)
+            const resultRemovePostulacion = await http("DELETE",`${URL_postulantes}/${idPost}`)
             if (resultRemovePostulacion.ok) {
                 gestorToastedCorrecto(message)
             }
@@ -331,7 +335,7 @@ function renderSeccionConvocatoria() {
             case "participantes":
                 await getParticipantes_convocatoria(convocatoriaSeleccionada.id);
                 break;
-            
+
             default:
 
                 break;

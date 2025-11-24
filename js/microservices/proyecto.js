@@ -13,10 +13,11 @@ async function initMisProyectosPage() {
 
 // ========== CARGAR JSON SIMULADO =============
 async function cargarProyectos() {
-    const URL = "./dataSimulada/proyectos.json";
-
+    const URL_DATOSIMULADOS = "./dataSimulada/proyectos.json";
+    
     try {
-        const res = await fetch(URL);
+        //const res = await http("GET",URL_proyectos);
+        const res = await http("GET",URL_DATOSIMULADOS);
         if (!res.ok) throw new Error("Error al cargar proyectos");
 
         proyectosData = await res.json();
@@ -32,7 +33,7 @@ async function cargarProyectos() {
 function renderProyectos(lista) {
     const grid = document.getElementById("proyectos-grid");
     const template = document.getElementById("proyecto-template");
-    let colorBadge = ""
+    let colorBadge = "";
 
     grid.innerHTML = "";
 

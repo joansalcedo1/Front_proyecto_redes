@@ -57,9 +57,9 @@ async function getOfertantePorArea(areaRequerida) {
 
     try {
         //cambiar cuando se conecte al backend
-        //const result = http("GET",`${URL_ofertante}/${areaRequerida}`)
+        //const result = await http("GET",`${URL_ofertantes}/${areaRequerida}`)
         
-        const result = await fetch(URL_DATOSIMULADOS)
+         const result = await http("GET",URL_DATOSIMULADOS)
         const ofertantes = await result.json()
         
         ofertantes.forEach(item => {
@@ -94,7 +94,7 @@ async function invitarOfertante(buttonElement) {
 
         try {
             /*DESCOMENTAR CUANDO SE CONECTE CON EL BACKEND y borrar lo indicado
-            const resultPost = http("POST", URL_convocatorias,payload)
+            const resultPost = await http("POST", URL_convocatorias,payload)
             const resultPostParticipante = await axios.post(`${URL_convocatorias}/participantes`)
             const resultPutPostulante = await axios.put(
             `${URL_postulantes}/${idPost}/estado`,
@@ -146,7 +146,7 @@ async function ignorarOfertante(buttonElement) {
 
         try {
             /*DESCOMENTAR CUANDO SE CONECTE CON EL BACKEND y borrar lo indicado
-            const resultPostOfertante = http("DELETE", `${URL_ofertante}/${idOf}`)
+            const resultPostOfertante = await http("DELETE", `${URL_ofertantes}/${idOf}`)
             if (resultPostOfertante.ok) {
                 message= `Usuario ${idOf} IGNORADO con exito`
                 cardContainer.classList.add("hidden")

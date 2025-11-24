@@ -1,17 +1,23 @@
 // BASE DE LA URL
 //cuando se suba a la vm se cambia el localhost por la direccion ip de la maquina del backen
 const URL_BASE = "http://localhost:"
+
 //DEFINIR PUERTOS DE CADA MICROSERVICIO
 const puertoConvocatoria = 3308
 const puertoPostulante = 3308
 const puertoOfertante = 3303 
+const puertoProyecto = 3312 
+
+
 //DEFINIR URL'S DE CADA MICROSERVICIO
 //en cada llamado de cada microservicio se le agrega lo necesario
 const URL_convocatorias = `${URL_BASE}${puertoConvocatoria}/apiRedes/convocatoria`
 const URL_postulantes = `${URL_BASE}${puertoPostulante}/proyecto_redes_capasback/postulante`
-const URL_ofertante = `${URL_BASE}${puertoOfertante}/apiredes/ofertante`
+const URL_ofertantes = `${URL_BASE}${puertoOfertante}/apiredes/ofertante`
+const URL_proyectos = `${URL_BASE}${puertoOfertante}/apiredes/proyecto`
 
 let idSesionUsuario =""
+
 
 //importante para renderizar la seccion de perfilesInteresados/participantes
 let convocatoriaSeleccionada = null;
@@ -87,10 +93,9 @@ document.getElementById("convocatorias-grid").addEventListener("click", function
 });
 
 /*=============  Hacer fetch =============
-USO ==> http("POST",URL_PROYECTOS,payload)         
+USO ==> await http("POST",URL_PROYECTOS,payload)         
 */
 async function http(method, url, data) {
-
     const options = { method, headers: {} };
 
     if (data) {
@@ -99,6 +104,5 @@ async function http(method, url, data) {
     }
 
     const res = await fetch(url, options);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    return res.json();
+    return res;  
 }
