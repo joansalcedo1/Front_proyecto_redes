@@ -97,7 +97,6 @@ async function postConvocatoria(e) {
     const areaRequerida = document.getElementById("area_requerida_input").value
     const cantidadConvocatoria = document.getElementById("cantidad_convocatoria_input").value
     const fechaFin = document.getElementById("fecha_fin_input").value
-
     const payload = {
         tituloCon: tituloConvocatoria,
         descripcion: descripcionConvocatoria,
@@ -107,7 +106,6 @@ async function postConvocatoria(e) {
         numPersSolicitad: cantidadConvocatoria,
         tituloProyecto: nombreProyecto
     }
-
     try {
         /*const resultPost = http("POST", URL_convocatorias,payload)
         if (resultPost.ok) {
