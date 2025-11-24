@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta-name="viewport" content="width=device-width, initial-scale=1.0">
     <title>home</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -11,12 +11,13 @@
 <body>
     <div class="flex flex-row h-screen bg-[#E9F4F5]">
 
+        <!-- MENU LATERAL -->
         <div id="dad_menu" class="p-4 w-80 h-full flex-shrink-0">
-
             <div class="w-full h-full px-5 py-10 bg-white flex flex-col rounded-3xl">
 
                 <div id="content_superior">
                     <h3 class="font-bold pb-6 text-center text-xl">Unifilm</h3>
+
                     <a href="./perfil.html">
                         <div class="flex items-center border border-gray-300 py-3 ps-4 rounded-xl">
                             <img id="img_perfil"
@@ -28,24 +29,28 @@
                             </div>
                         </div>
                     </a>
+
                     <div id="dad_paginas" class="space-y-6 pt-7 px-2 font-medium text-gray-700">
                         <a href="./index.html" class="flex items-center hover:text-blue-600 transition-colors">
                             <img class="inline-block mr-4 w-6 h-6"
                                 src="https://cdn-icons-png.flaticon.com/512/1946/1946436.png" alt="Icono Inicio">
                             <span class="font-bold text-black">Inicio</span>
                         </a>
+
                         <a href="./misPostulaciones.html"
                             class="flex items-center hover:text-blue-600 transition-colors">
                             <img class="inline-block mr-4 w-6 h-6"
                                 src="https://cdn-icons-png.flaticon.com/512/2312/2312041.png" alt="Icono Postulaciones">
                             <span>Mis postulaciones</span>
                         </a>
+
                         <a href="./misConvocatorias.html"
                             class="flex items-center hover:text-blue-600 transition-colors">
                             <img class="inline-block mr-4 w-6 h-6"
                                 src="https://cdn-icons-png.flaticon.com/512/1061/1061544.png" alt="Icono Convocatorias">
                             <span>Mis convocatorias</span>
                         </a>
+
                         <a href="./misProyectos.html" class="flex items-center hover:text-blue-600 transition-colors">
                             <img class="inline-block mr-4 w-6 h-6"
                                 src="https://cdn-icons-png.flaticon.com/512/702/702814.png" alt="Icono Proyectos">
@@ -65,6 +70,7 @@
             </div>
         </div>
 
+        <!-- OPORTUNIDADES PARA TI -->
         <div id="oportunidades_paraTi" class="flex-grow p-4">
             <div class="h-full w-full rounded-3xl p-6">
                 <h2 class="text-2xl text-center font-semibold text-gray-800">Oportunidades para ti</h2>
@@ -72,14 +78,39 @@
             </div>
         </div>
 
+        <!-- PERFILES DISPONIBLES -->
         <div id="perfiles_Disponibles" class="flex flex-row w-1/4 p-4 justify-end">
             <div class="h-full w-full bg-[#CDE2E4] rounded-3xl p-6">
                 <h2 class="text-2xl font-semibold text-gray-800 text-center">Perfiles disponibles</h2>
 
-                <p>Aquí va lo que hizo juan pablo</p>
+                <!-- CONTENEDOR DINÁMICO -->
+                <div id="perfiles-container" class="flex flex-col gap-4 mt-4">
+                    <!-- Los perfiles se insertan aquí -->
+                </div>
+
             </div>
         </div>
     </div>
+
+    <!-- TEMPLATE INVISIBLE PARA TARJETAS -->
+    <template id="perfil-template">
+        <div class="bg-white shadow-md rounded-xl p-4 flex flex-col gap-2">
+            <div class="font-semibold text-lg" id="nombre_perfil"></div>
+            <div class="text-sm text-gray-600" id="rol_perfil"></div>
+
+            <div class="mt-2 text-sm">
+                <span class="font-medium text-gray-700">Disponibilidad:</span>
+                <p id="disponibilidad_perfil" class="text-red-500 font-semibold"></p>
+            </div>
+        </div>
+    </template>
+
+    <!-- SCRIPTS -->
+    <script src="services.js"></script>
+    <script>
+        cargarPerfilesDisponibles();
+    </script>
+
 </body>
 
 </html>

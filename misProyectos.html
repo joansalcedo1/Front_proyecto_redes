@@ -4,15 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>proyectos</title>
+    <title>Mis proyectos</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body>
     <div class="flex flex-row h-screen bg-[#E9F4F5]">
 
+        <!-- MENU LATERAL -->
         <div id="dad_menu" class="p-4 w-80 h-full flex-shrink-0">
-
             <div class="w-full h-full px-5 py-10 bg-white flex flex-col rounded-3xl">
 
                 <div id="content_superior">
@@ -65,14 +65,165 @@
             </div>
         </div>
 
+        <!-- CONTENIDO PRINCIPAL -->
         <div id="main_content" class="flex-grow p-4">
-            <div class="h-full w-full bg-white rounded-3xl p-6">
-                <h2 class="text-2xl font-semibold text-gray-800">Contenido Principal (Juan pablo)</h2>
-                <p>Aquí irá el contenido de la página hecho por Juan Pablo (revisar figma): </p>
-                <a class="text-blue-500 underline" href="https://www.figma.com/design/5jB2ykxmqv1mEkgJjW2rT6/Untitled?node-id=0-1&t=XKjadN8AfwQDyUgk-1">Link al figma</a>
+            <div class="h-full w-full bg-[#E9F4F5] rounded-3xl p-6 flex flex-col">
+
+                <!-- TÍTULO + BOTÓN -->
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-semibold text-gray-800">Mis Proyectos</h2>
+
+                    <button id="btn-abrir-modal"
+                        class="px-5 py-2 rounded-full bg-gradient-to-r from-[#23CCE8] to-[#0FF0DE] text-white font-semibold shadow-md hover:shadow-lg hover:scale-105 transition">
+                        + Agregar
+                    </button>
+                </div>
+
+                <!-- BUSCADOR -->
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="flex-1">
+                        <input id="buscar-proyecto" type="text" placeholder="Buscar"
+                            class="w-full rounded-full border border-gray-300 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-400">
+                    </div>
+                </div>
+
+                <!-- GRID DE PROYECTOS -->
+                <div id="proyectos-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 overflow-y-auto pr-2">
+                    <!-- Tarjetas dinámicas -->
+                </div>
             </div>
         </div>
     </div>
+
+    <template id="proyecto-template">
+        <article class="bg-white border border-[#D9E9EC] rounded-xl shadow-sm p-4 hover:shadow-md transition">
+    
+            <!-- Título + Estado -->
+            <div class="flex items-start justify-between">
+                <h3 id="titulo-proyecto" class="text-lg font-semibold text-gray-800"></h3>
+    
+                <!-- Badge de estado -->
+                <span id="estado-proyecto"
+                    class="text-xs font-semibold px-3 py-1 rounded-full">
+                </span>
+            </div>
+    
+            <!-- Nombre organizador -->
+            <div class="flex items-center text-sm text-gray-600 mt-1">
+                <img src="https://cdn-icons-png.flaticon.com/512/747/747376.png" class="w-4 h-4 opacity-70 mr-1">
+                <span id="organizador-proyecto"></span>
+            </div>
+    
+            <!-- Descripción -->
+            <p id="descripcion-proyecto" class="text-sm text-gray-700 mt-2 leading-tight"></p>
+    
+            <!-- Fechas -->
+            <div class="flex items-center gap-6 text-xs text-gray-600 mt-3">
+    
+                <span class="flex items-center gap-1">
+                    <img src="https://cdn-icons-png.flaticon.com/512/747/747310.png" class="w-4 h-4 opacity-70">
+                    Inicio: <span id="fecha-inicio-proyecto" class="font-medium"></span>
+                </span>
+    
+                <span class="flex items-center gap-1">
+                    <img src="https://cdn-icons-png.flaticon.com/512/747/747310.png" class="w-4 h-4 opacity-70">
+                    Fin: <span id="fecha-fin-proyecto" class="font-medium"></span>
+                </span>
+            </div>
+    
+            <!-- Ver proyecto -->
+            <a id="link-proyecto" href="#" target="_blank"
+                class="mt-2 flex items-center gap-1 text-[#1CA3C9] text-sm font-medium hover:underline">
+                <img src="https://cdn-icons-png.flaticon.com/512/455/455691.png" class="w-4 h-4">
+                Ver proyecto
+            </a>
+    
+        </article>
+    </template>
+    
+
+    <!-- MODAL AGREGAR PROYECTO -->
+<div id="modal-proyecto"
+class="fixed inset-0 bg-black/40 flex items-center justify-center z-50 hidden">
+<div class="bg-white rounded-2xl shadow-xl w-full max-w-lg p-6 relative">
+    <button id="btn-cerrar-modal"
+        class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-xl font-bold">
+        ×
+    </button>
+
+    <h3 class="text-xl font-semibold text-gray-800 mb-4">Agrega uno de tus proyectos</h3>
+
+    <form id="form-proyecto" class="space-y-4">
+
+        <div>
+            <label class="text-sm font-medium text-gray-700 block mb-1">Título</label>
+            <input name="titulo" type="text" required
+                class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-400">
+        </div>
+
+        <div>
+            <label class="text-sm font-medium text-gray-700 block mb-1">Descripción</label>
+            <textarea name="descripcion" rows="3" required
+                class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-400"></textarea>
+        </div>
+
+        <div>
+            <label class="text-sm font-medium text-gray-700 block mb-1">Nombre organizador</label>
+            <input name="nombreOrganizador" type="text" required
+                class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-400">
+        </div>
+
+        <div>
+            <label class="text-sm font-medium text-gray-700 block mb-1">Estado</label>
+            <select name="estado" required
+                class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-400">
+                <option value="En curso">En curso</option>
+                <option value="Finalizado">Finalizado</option>
+                <option value="En revisión">En revisión</option>
+            </select>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <label class="text-sm font-medium text-gray-700 block mb-1">Fecha inicio</label>
+                <input name="fechaInicio" type="date" required
+                    class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-400">
+            </div>
+            <div>
+                <label class="text-sm font-medium text-gray-700 block mb-1">Fecha fin</label>
+                <input name="fechaFin" type="date" required
+                    class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-400">
+            </div>
+        </div>
+
+        <div>
+            <label class="text-sm font-medium text-gray-700 block mb-1">URL</label>
+            <input name="url" type="url"
+                class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-400"
+                placeholder="https://...">
+        </div>
+
+        <div class="pt-2">
+            <button type="submit"
+                class="w-full py-2 rounded-full bg-gradient-to-r from-[#23CCE8] to-[#0FF0DE] text-white font-semibold shadow-md hover:shadow-lg hover:scale-105 transition">
+                Agregar
+            </button>
+        </div>
+    </form>
+</div>
+</div>
+
+
+    <!-- SCRIPTS -->
+    <script src="services.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            if (typeof initMisProyectosPage === "function") {
+                initMisProyectosPage();
+            }
+        });
+    </script>
+
 </body>
 
 </html>
