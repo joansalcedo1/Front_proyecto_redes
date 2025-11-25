@@ -109,3 +109,20 @@ async function http(method, url, data) {
     const res = await fetch(url, options);
     return res;  
 }
+
+async function consultarInfoUsuario() {
+    const URL_SIMULADA = "./dataSimulada/inicioSesion.json"
+    try {
+        //const result = await http("GET",`${URL_usuarios}/${userId}`)
+        const result = await http("GET", URL_SIMULADA)
+        const data = await result.json()
+
+        console.log(data)
+        document.querySelector("#nombre_perfil").textContent = data.nombre;
+        document.querySelector("#rol_perfil").textContent = data.rol;
+        document.querySelector("#img_perfil").src = data.srcFotoPerfil;
+    } catch (error) {
+        console.error(error.message)
+        throw error;
+    }
+}

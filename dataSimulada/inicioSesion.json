@@ -4,6 +4,7 @@
   "nombre": "Camila",
   "apellido": "Rojas",
   "email": "camila.rojas@example.com",
+  "srcFotoPerfil":"https://thumbs.dreamstime.com/b/mujer-joven-hermosa-31169974.jpg",
   "password": 12345,
   "rol": "Fotografía",
   "perfil": "Apasionada por la dirección de fotografía. Experiencia en cortometrajes."

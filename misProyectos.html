@@ -219,6 +219,8 @@
     <script src="./js/utilities.js"></script> <!-- AHORA utilities se ejecuta cuando las otras funciones YA existen -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+            
+            consultarInfoUsuario()
             if (typeof initMisProyectosPage === "function") {
                 initMisProyectosPage();
             }
