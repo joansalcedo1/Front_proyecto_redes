@@ -53,10 +53,8 @@ document.getElementById("open-modal-btn").addEventListener("click", async () => 
     // Cuando el usuario elige un proyecto, autocompleta la fecha fin
     select.addEventListener("change", (e) => {
         const tituloSeleccionado = e.target.value;
-
         // buscar el proyecto por título
         const proyecto = proyectosData.find(p => p.titulo === tituloSeleccionado);
-
         if (proyecto) {
             const inputFechaFin = document.getElementById("fecha_fin_input");
 
