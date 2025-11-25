@@ -28,7 +28,7 @@
                 <p>Credenciales incorrectas</p>
             </div>
 
-            <form onsubmit="iniciarSesion(event)" method="POST">
+            <form id="login-form" onsubmit="inicioSesion(e)">
 
                 <!-- EMAIL -->
                 <div class="mb-4">
@@ -82,6 +82,7 @@
     <script src="./js/utilities.js"></script>
     <script src="./js/microservices/convocatoria.js"></script>
     <script src="./js/microservices/postulante.js"></script>
+    <script src="./js/microservices/usuarios.js"></script>
 
 </body>
 

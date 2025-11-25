@@ -25,7 +25,7 @@
             <div id="titulo" class="py-5">
                 <h1 class="font-bold pb-6 text-center text-3xl">Tu próxima producción empieza aquí</h1>
             </div>
-            <form id="multipleForm" onsubmit="registroUsuarios(event)" method="POST">
+            <form id="multipleForm" onsubmit="registroUsuarios(event)">
                 <div id="step1" class="step-content">
                     <div class="mb-4">
                         <label for="firstname" class="block text-gray-700 font-bold mb-2">Nombre</label>
@@ -125,7 +125,7 @@
 (500 caracteres max)" maxlength="500" required></textarea>
 
                     <div class=" flex flex-col gap-4 pb-4">
-                        <button type="submit"  class="bg-gradient-to-r from-[#23CCE8] to-[#0FF0DE]
+                        <button type="submit" class="bg-gradient-to-r from-[#23CCE8] to-[#0FF0DE]
                         text-white font-bold py-3 px-8 rounded-3xl shadow-md 
                         hover:shadow-xl hover:scale-105 transition duration-300 ease-in-out">Registrar
                         </button>
@@ -144,52 +144,11 @@
         </div>
     </div>
     </div>
-    <script src="services.js"></script>
-    <script>
-        let currentStep = 1;
-        const totalSteps = 3;
-        const form = document.getElementById("multipleForm")
-        function actualizarUI() {
-            const indicator = document.getElementById(`indicatorStep${currentStep}`)
-            for (i = 1; i <= totalSteps; i++) {
-                if (i === currentStep) {
-                    indicator.classList.remove('bg-gray-400');
-                    indicator.classList.add('bg-blue-400');
-
-                } else {
-                    indicator.classList.remove('bg-blue-400');
-                    indicator.classList.add('bg-gray-400');
-                }
-                console.log(indicator)
-            }
-
-        }
-
-        function nextStep() {
-            const currentInputs = document.getElementById(`step${currentStep}`).querySelectorAll('input[required]');
-            let allValid = true;
-
-            currentInputs.forEach(input => {
-                if (!input.checkValidity()) {
-                    allValid = false;
-                    input.reportValidity();
-                }
-            });
-
-            if (allValid && currentStep < totalSteps) {
-                const currentElement = document.getElementById(`step${currentStep}`)
-                currentElement.classList.add("hidden")
-                currentStep++
-                const nextElement = document.getElementById(`step${currentStep}`)
-                nextElement.classList.remove("hidden")
-                console.log(currentStep);
-                actualizarUI();
-            }
-        }
-    </script>
-    <script src="./js/utilities.js"></script>
+    
     <script src="./js/microservices/convocatoria.js"></script>
     <script src="./js/microservices/postulante.js"></script>
+    <script src="./js/microservices/usuarios.js"></script>
+    <script src="./js/utilities.js"></script>
 </body>
 
 </html>
