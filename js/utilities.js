@@ -1,6 +1,8 @@
 // BASE DE LA URL
 //cuando se suba a la vm se cambia el localhost por la direccion ip de la maquina del backen
 const URL_BASE = "http://localhost:"
+//cambiar localhost por direccion ip de maquina => 192.168.100.2
+//
 
 //DEFINIR PUERTOS DE CADA MICROSERVICIO
 const puertoConvocatoria = 3308
