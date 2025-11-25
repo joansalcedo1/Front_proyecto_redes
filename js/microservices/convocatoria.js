@@ -108,9 +108,10 @@ async function postConvocatoria(e) {
         tituloProyecto: nombreProyecto
     }
     try {
-        /* DESCOMENTAR CUANDO SE CONECTE AL BACKEND Y BORRAR LO INDICADO
+        /* DESCOMENTAR CUANDO SE CONECTE AL BACKEND Y BORRAR LO INDICADO*/
         const resultPost = await http("POST", URL_convocatorias,payload)
-        if (resultPost.ok) {
+        const data = await resultPost.json()
+        /*if (resultPost.ok) {
             const idNuevaConv = resultPost.idConvocatoria
             message= `Convocatoria ${tituloConvocatoria} con id ${idNuevaConv} creada con exito`
             gestorToastedCorrecto(message)
@@ -118,14 +119,13 @@ async function postConvocatoria(e) {
             renderConvocatorias(convocatorias)
         }*/
         //------------------------------------------------BORRAR------------------------
-        const result = await http("GET", URL_DATOSIMULADOS)
+        /*const result = await http("GET", URL_DATOSIMULADOS)
         const data = await result.json();
         convocatorias.push(payload)
-        renderConvocatorias(convocatorias)
+        renderConvocatorias(convocatorias)*/
         //------------------------------------------------------------------------------
         if (data) {
             const idNuevaConv = data.idConvocatoria
-
             message = `Convocatoria "${tituloConvocatoria}" con id ${idNuevaConv} creada con exito`
             gestorToastedCorrecto(message)
         }

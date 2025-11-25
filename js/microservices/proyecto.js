@@ -46,7 +46,7 @@ document.getElementById("open-modal-btn").addEventListener("click", async () => 
         option.value = proyecto.titulo;
         option.textContent = proyecto.titulo;
         select.appendChild(option);
-        fecha.textContent = proyecto.fechaFin
+        fecha.textContent = proyecto.fecha_cierre
     });
 
 
@@ -59,7 +59,7 @@ document.getElementById("open-modal-btn").addEventListener("click", async () => 
             const inputFechaFin = document.getElementById("fecha_fin_input");
 
             // cargar la fecha fin del proyecto
-            inputFechaFin.value = proyecto.fechaFin;
+            inputFechaFin.value = proyecto.fecha_cierre;
 
             console.log("Fecha fin asignada automáticamente:", proyecto.fechaFin);
         }
@@ -81,11 +81,9 @@ function renderProyectos(lista) {
         const clone = template.content.cloneNode(true);
 
         clone.querySelector("#titulo-proyecto").textContent = p.titulo;
-        clone.querySelector("#organizador-proyecto").textContent = p.nombreOrganizador;
         clone.querySelector("#descripcion-proyecto").textContent = p.descripcion;
-
         clone.querySelector("#fecha-inicio-proyecto").textContent = p.fechaInicio;
-        clone.querySelector("#fecha-fin-proyecto").textContent = p.fechaFin;
+        clone.querySelector("#fecha-fin-proyecto").textContent = p.fecha_cierre;
 
         // enlace
         clone.querySelector("#link-proyecto").href = p.url || "#";
