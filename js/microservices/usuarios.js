@@ -61,7 +61,7 @@ async function inicioSesion(event) {
 
         const res = await http("GET", URL_SIMULADA)
         const data = await res.json();
-        console.log("ingresado",email,password)
+        console.log("ingresado", email, password)
         console.log("consultado", data.email, data.password)
         if (email == data.email & password == data.password) {
             gestorToastedCorrecto(`Bienvenido ${data.nombre}. Rederigiendo al index...`)
@@ -69,9 +69,9 @@ async function inicioSesion(event) {
             setTimeout(() => {
                 window.location.href = "index.html";
             }, 5000);
-        }else{
+        } else {
             errorBox.classList.remove("hidden");
-            
+
             setTimeout(() => {
                 errorBox.classList.add("hidden");
             }, 5000);
@@ -130,3 +130,10 @@ function nextStep() {
     }
 }
 
+function cerrarSesion() {
+    sessionStorage.clear()
+    gestorToastedCorrecto(`Cerrando sesión...`)
+    setTimeout(() => {
+        window.location.href = "login.html";
+    }, 5000);
+}

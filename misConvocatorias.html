@@ -45,8 +45,7 @@
                             <select id="titulo_proyecto_input" name="titulo_proyecto_input"
                                 class="w-full p-3 border border-gray-300 rounded-3xl
                                 focus:outline-none focus:ring-2 focus:ring-blue-300 resize-y transition duration-150 ease-in-out mt-2" required>
-                                <option value="Corto Sci-Fi: Buscamos Director de Fotografía">Corto Sci-Fi: Buscamos
-                                    Director de Fotografía</option>
+                                
                             </select>
                         </div>
                         <div class="flex space-x-4">
@@ -78,7 +77,7 @@
                             <label for="fecha_fin_input">fecha fin</label>
                             <input type="date" id="fecha_fin_input" name="fecha_fin_input"
                                 class="w-full p-3 border border-gray-300 rounded-3xl
-                                focus:outline-none focus:ring-2 focus:ring-blue-300 resize-y transition duration-150 ease-in-out mt-2" required>
+                                focus:outline-none focus:ring-2 focus:ring-blue-300 resize-y transition duration-150 ease-in-out mt-2" readonly>
                         </div>
                         <div class="mx-auto">
                             <button type="button" id="post-Convocatoria-btn" onclick="postConvocatoria()"
@@ -382,7 +381,7 @@
     <div id="noCorrect_toasted"
         class="hidden rounded-l-3xl text-white absolute bottom-7 right-0 z-999 w-1/4 h-30 bg-red-800">
         <div id="toasted_message" class="font-semibold px-4 py-2 flex items-center">
-            <span class="px-4 inline ">Hubo un problema agregando el usuario <p id="id_usuario" class="inline"></p>
+            <span class="px-4 inline "> Hubo un problema agregando el usuario <p id="id_usuario" class="inline"></p>
             </span>
             <img class="w-11 " src="https://cdn-icons-png.flaticon.com/512/399/399274.png" alt="">
         </div>
@@ -391,11 +390,12 @@
     <script src="./js/microservices/convocatoria.js"></script>
     <script src="./js/microservices/postulante.js"></script>
     <script src="./js/microservices/ofertantes.js"></script>
+    <script src="./js/microservices/proyecto.js"></script>
     <script src="./js/utilities.js"></script> <!-- AHORA utilities se ejecuta cuando las otras funciones YA existen -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             cargarDatos()
-            consultarInfoUsuario()
+            consultarInfoUsuario();
         });
     </script>
 </body>

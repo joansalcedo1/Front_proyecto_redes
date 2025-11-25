@@ -55,7 +55,6 @@ function renderConvocatorias(convocatorias) {
         clone.querySelector("#descripcion_convocatoria").textContent = item.descripcion
         clone.querySelector("#area_requerida_convocatoria").textContent = item.areaRequerida
         clone.querySelector("#fechaMax_convocatoria").textContent = item.fecha_cierre
-        console.log("nombres convocatoria", item.tituloCon)
         /*clone.querySelector("#btn_convocatoria").onclick = () => {
             const id = item.idConvocatoria
             const gridPostulantes = document.getElementById("postulante-grid")

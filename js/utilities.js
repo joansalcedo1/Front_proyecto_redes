@@ -2,25 +2,31 @@
 //cuando se suba a la vm se cambia el localhost por la direccion ip de la maquina del backen
 const URL_BASE = "http://localhost:"
 //cambiar localhost por direccion ip de maquina => 192.168.100.2
-//
 
 //DEFINIR PUERTOS DE CADA MICROSERVICIO
-const puertoConvocatoria = 3308
-const puertoPostulante = 3308
 const puertoOfertante = 3303 
-const puertoProyecto = 3312 
+const puertoConvocatoria = 3308
 const puertoUsuarios= 3310 
+const puertoProyecto = 3312 
+const puertoPostulante = 3314
+
+/*
+Postulante 3314
+Ofertante 3303
+Usuarios 3310
+Convocatoria 3308
+Proyectos 3312
+*/
 
 //DEFINIR URL'S DE CADA MICROSERVICIO
 //en cada llamado de cada microservicio se le agrega lo necesario
-const URL_convocatorias = `${URL_BASE}${puertoConvocatoria}/apiRedes/convocatoria`
 const URL_postulantes = `${URL_BASE}${puertoPostulante}/proyecto_redes_capasback/postulante`
+const URL_convocatorias = `${URL_BASE}${puertoConvocatoria}/apiRedes/convocatoria`
 const URL_ofertantes = `${URL_BASE}${puertoOfertante}/apiredes/ofertante`
 const URL_proyectos = `${URL_BASE}${puertoOfertante}/apiredes/proyecto`
 const URL_usuarios = `${URL_BASE}${puertoOfertante}/apiredes/usuarios`
 //limpiar el sessionStorage
-sessionStorage.clear();
-let userId = sessionStorage.getItem("userId") || "";
+let userId = sessionStorage.getItem("userId");
 console.log(userId)
 //importante para renderizar la seccion de perfilesInteresados/participantes
 let convocatoriaSeleccionada = null;
