@@ -127,3 +127,66 @@ function configurarModalProyectos() {
         cerrar();
     });
 }
+
+// =============================
+// CARGAR OPORTUNIDADES PARA TI
+// =============================
+async function cargarOportunidades() {
+    try {
+        const res = await fetch("./dataSimulada/proyectos.json");
+        if (!res.ok) throw new Error("No se pudo cargar proyectos");
+
+        const proyectos = await res.json();
+
+        // Filtrar solo los proyectos activos
+        const activos = proyectos.filter(p => p.estado === "activo");
+
+        renderOportunidades(activos);
+
+    } catch (err) {
+        console.error("ERROR:", err);
+    }
+}
+
+
+// =============================
+// RENDERIZAR TARJETAS
+// =============================
+function renderOportunidades(lista) {
+    const grid = document.getElementById("oportunidades-grid");
+    const template = document.getElementById("oportunidad-template");
+
+    if (!grid || !template) return;
+
+    grid.innerHTML = "";
+
+    lista.forEach(p => {
+        const clone = template.content.cloneNode(true);
+
+        clone.getElementById("titulo_op").textContent = p.titulo;
+        clone.getElementById("proyecto_op").textContent = p.organizador;
+        clone.getElementById("descripcion_op").textContent = p.descripcion;
+        clone.getElementById("area_op").textContent = detectarArea(p);
+        clone.getElementById("fecha_op").textContent = p.fechaFin;
+
+        clone.getElementById("btn_postular").onclick = () => {
+            alert(`Te has postulado al proyecto: ${p.titulo}`);
+        };
+
+        grid.appendChild(clone);
+    });
+}
+
+
+// =============================
+// DETERMINAR ÁREA REQUERIDA
+// =============================
+function detectarArea(p) {
+    if (p.camaraDep) return "Cámara";
+    if (p.direccionDep) return "Dirección";
+    if (p.arteDep) return "Arte";
+    if (p.lucesDep) return "Luces";
+    if (p.postProdDep) return "Postproducción";
+    return "General";
+}
+
