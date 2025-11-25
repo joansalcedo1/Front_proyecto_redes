@@ -1,7 +1,7 @@
 
 //===================== CREAR USUARIO ======================  
 async function registroUsuarios(event) {
-    const URL_SIMULADA = "./dataSimulada/registroDeUsuario.json"
+    const URL_SIMULADA = "./dataSimulada/inicioSesion.json"
     event.preventDefault();
     const usuario = {
         nombre: document.getElementById("firstname").value,
@@ -41,10 +41,10 @@ async function registroUsuarios(event) {
 }
 
 //=================================== INICIO SESION ==================================== 
-async function inicioSesion(e) {
-    const URL_SIMULADA = "./dataSimulada/inicioSesion.json"
+async function inicioSesion(event) {
+    const URL_SIMULADA = "dataSimulada/inicioSesion.json"
 
-    e.preventDefault();
+    event.preventDefault();
 
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value.trim();
@@ -60,27 +60,30 @@ async function inicioSesion(e) {
         });*/
 
         const res = await http("GET", URL_SIMULADA)
-        if (email == res.email & password == res.password) {
-            estorToastedCorrecto(`Bienvenido ${usuario.nombre}. Rederigiendo al index...`)
+        const data = await res.json();
+        console.log("ingresado",email,password)
+        console.log("consultado", data.email, data.password)
+        if (email == data.email & password == data.password) {
+            gestorToastedCorrecto(`Bienvenido ${data.nombre}. Rederigiendo al index...`)
 
             setTimeout(() => {
                 window.location.href = "index.html";
             }, 5000);
         }else{
             errorBox.classList.remove("hidden");
+            
+            setTimeout(() => {
+                errorBox.classList.add("hidden");
+            }, 5000);
         }
         if (!res.ok) {
             errorBox.classList.remove("hidden");
             return;
         }
-
-        const data = await res.json();
-
         // Guardar ID del usuario en sessionStorage
         sessionStorage.setItem("userId", data.id);
-
         // Redirigir al dashboard o index
-        window.location.href = "index.html";
+        //window.location.href = "index.html";
 
     } catch (error) {
         console.error("Error en login:", error);

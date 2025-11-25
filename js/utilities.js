@@ -16,15 +16,18 @@ const URL_postulantes = `${URL_BASE}${puertoPostulante}/proyecto_redes_capasback
 const URL_ofertantes = `${URL_BASE}${puertoOfertante}/apiredes/ofertante`
 const URL_proyectos = `${URL_BASE}${puertoOfertante}/apiredes/proyecto`
 const URL_usuarios = `${URL_BASE}${puertoOfertante}/apiredes/usuarios`
-let idSesionUsuario =""
-
-
+//limpiar el sessionStorage
+sessionStorage.clear();
+let userId = sessionStorage.getItem("userId") || "";
+console.log(userId)
 //importante para renderizar la seccion de perfilesInteresados/participantes
 let convocatoriaSeleccionada = null;
 
 //tosated's basicos creados para confirmar mensajes
 const toastedCoreccto = document.querySelector("#correct_toasted");
 const toastedInCoreccto = document.querySelector("#inCorrect_toasted");
+
+
 
 //función para el login y el register
 function togglePasswordVisibility() {
