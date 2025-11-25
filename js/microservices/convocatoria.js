@@ -9,7 +9,7 @@ const overlay = document.getElementById('modal-overlay');
 
 
 //=============  TRAE TODAS LAS CONVOCATORIAS HECHAS POR UN USUARIO ============= 
-async function cargarDatos(id_usuarioOrganizador) {
+async function cargarDatos() {
     //se llama en el script final de misConvocatorias.html
 
     /*
@@ -23,10 +23,11 @@ async function cargarDatos(id_usuarioOrganizador) {
      */
 
     const URL_DATOSIMULADOS = "./dataSimulada/convocatoria.json"
+
     try {
         //DESCOMENTAR CUANDO SE CONECTE CON EL BACKEND 
-        //const res = await http("GET",`${URL_convocatorias}/${id_usuarioOrganizador}`) //=> consulta convocatorias, sacado de la documentacion de convocatorias
-        const res = await http("GET", URL_DATOSIMULADOS)
+        const res = await http("GET",`${URL_convocatorias}/usuario/${userId}`) //=> consulta convocatorias, sacado de la documentacion de convocatorias
+        //const res = await http("GET", URL_DATOSIMULADOS)
         if (!res.ok) {
             throw new Error(`Error al cargar los datos: ${res.statusText}`);
         }
@@ -149,14 +150,14 @@ async function getParticipantes_convocatoria(idConvocatoria) {
     try {
         /* CAMBIAR CUANDO SE CONECTE CON EL BACKEND */
         // CAMBIAR EL ENDPOINT CUANDO SE CREE NO ES PARTICIPANTES 
-        //const res = await http("GET",`${URL_convocatorias}/participantes/${idConvocatoria}`)
-        const res = await http("GET",URL_DATOSIMULADOS)
+        const res = await http("GET",`${URL_convocatorias}/participantes/${idConvocatoria}`)
+        //const res = await http("GET",URL_DATOSIMULADOS)
         const participantes = await res.json();
 
         participantes.forEach(item => {
             const clone = template.content.cloneNode(true);
-            clone.querySelector("#id_participantes").textContent = item.idPart;
-            clone.querySelector("#nombre_participantes").textContent = item.nombre;
+            clone.querySelector("#id_participantes").textContent = item.idParticipante;
+            clone.querySelector("#nombre_participantes").textContent = item.nombrePart;
             //clone.querySelector("#rol__participantes").textContent = item.rol;
             clone.querySelector("#estado_participantes").textContent = "Aceptado";
             grid.appendChild(clone);
@@ -169,7 +170,7 @@ async function getParticipantes_convocatoria(idConvocatoria) {
 
 
 //=============  trae los postulantes de la convocatoria =============
-async function getPostulantes_convocatoria(tituloConvocatoria) {
+async function getPostulantes_convocatoria(idConvocatoria) {
 
     //se llama en utilites 
 
@@ -188,8 +189,8 @@ async function getPostulantes_convocatoria(tituloConvocatoria) {
 
     try {
         /* CAMBIAR CUANDO SE CONECTE CON EL BACKEND */
-        //const res = await http("GET",`${URL_postulantes}/${tituloConvocatoria}`)
-        const res = await http("GET",URL_DATOSIMULADOS)
+        const res = await http("GET",`${URL_convocatorias}/${idConvocatoria}/postulaciones`)
+        //const res = await http("GET",URL_DATOSIMULADOS)
 
         if (!res.ok) {
             throw new Error(`Error al cargar los datos: ${res.statusText}`);
@@ -328,10 +329,10 @@ function renderSeccionConvocatoria() {
         console.log("Renderizando sección:", opcion);
         switch (opcion) {
             case "ofertantes":
-                await getOfertantePorArea(convocatoriaSeleccionada.areaRequerida)
+                await getOfertantePorArea(convocatoriaSeleccionada.id)
                 break;
             case "perfiles interesados":
-                await getPostulantes_convocatoria(convocatoriaSeleccionada.titulo);
+                await getPostulantes_convocatoria(convocatoriaSeleccionada.id);
                 break;
             case "participantes":
                 await getParticipantes_convocatoria(convocatoriaSeleccionada.id);

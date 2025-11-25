@@ -23,8 +23,8 @@ Proyectos 3312
 const URL_postulantes = `${URL_BASE}${puertoPostulante}/proyecto_redes_capasback/postulante`
 const URL_convocatorias = `${URL_BASE}${puertoConvocatoria}/apiRedes/convocatoria`
 const URL_ofertantes = `${URL_BASE}${puertoOfertante}/apiredes/ofertante`
-const URL_proyectos = `${URL_BASE}${puertoOfertante}/apiredes/proyecto`
-const URL_usuarios = `${URL_BASE}${puertoOfertante}/apiredes/usuarios`
+const URL_proyectos = `${URL_BASE}${puertoProyecto}/apiredes/proyecto`
+const URL_usuarios = `${URL_BASE}${puertoUsuarios}/apiredes/usuarios`
 //limpiar el sessionStorage
 let userId = sessionStorage.getItem("userId");
 console.log(userId)
@@ -121,8 +121,8 @@ async function http(method, url, data) {
 async function consultarInfoUsuario() {
     const URL_SIMULADA = "./dataSimulada/inicioSesion.json"
     try {
-        //const result = await http("GET",`${URL_usuarios}/${userId}`)
-        const result = await http("GET", URL_SIMULADA)
+        const result = await http("GET",`${URL_usuarios}/${userId}`)
+        //const result = await http("GET", URL_SIMULADA)
         const data = await result.json()
 
         console.log(data)

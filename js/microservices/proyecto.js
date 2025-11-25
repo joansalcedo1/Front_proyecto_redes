@@ -16,8 +16,8 @@ async function cargarProyectos() {
     const URL_DATOSIMULADOS = "./dataSimulada/proyectos.json";
 
     try {
-        //const res = await http("GET",URL_proyectos);
-        const res = await http("GET", URL_DATOSIMULADOS);
+        const res = await http("GET",`${URL_usuarios}/${userId}/proyectos`);
+        //const res = await http("GET", URL_DATOSIMULADOS);
         if (!res.ok) throw new Error("Error al cargar proyectos");
 
         proyectosData = await res.json();

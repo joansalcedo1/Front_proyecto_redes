@@ -14,9 +14,9 @@ async function registroUsuarios(event) {
     console.log("escribiste esto", usuario)
     try {
         //DESCOMENTAR CUANDO SE CONECTE AL BACKEND
-        //const res = await http("POST", URL_usuarios, usuario);
+        const res = await http("POST", URL_usuarios, usuario);
 
-        const res = await http("GET", URL_SIMULADA);
+        //const res = await http("GET", URL_SIMULADA);
 
         if (!res.ok) {
             const err = await res.text();
@@ -53,22 +53,28 @@ async function inicioSesion(event) {
 
     try {
         //falta la creacion del endpoint ESPERAR 
-        /*
-        const res = await http("POST", URL_usuarios, {
+
+        const res = await http("POST", `${URL_usuarios}/login`, {
             email,
             password
-        });*/
+        });
 
-        const res = await http("GET", URL_SIMULADA)
+        //const res = await http("GET", URL_SIMULADA)
         const data = await res.json();
         console.log("ingresado", email, password)
-        console.log("consultado", data.email, data.password)
-        if (email == data.email & password == data.password) {
-            gestorToastedCorrecto(`Bienvenido ${data.nombre}. Rederigiendo al index...`)
+        console.log("consultado", data)
+        console.log(data.message)
+        if (data.message === "Login exitoso") {
+            gestorToastedCorrecto(`Bienvenido ${data.usuario.nombre}. Rederigiendo al index...`)
 
             setTimeout(() => {
                 window.location.href = "index.html";
             }, 5000);
+
+            // Guardar ID del usuario en sessionStorage
+            sessionStorage.setItem("userId", data.usuario.id);
+            sessionStorage.setItem("user_name", data.usuario.nombre)
+            sessionStorage.setItem("user_rol",data.usuario.rol)
         } else {
             errorBox.classList.remove("hidden");
 
@@ -80,10 +86,6 @@ async function inicioSesion(event) {
             errorBox.classList.remove("hidden");
             return;
         }
-        const nombreCompleto = data.nombre +" "+ data.apellido
-        // Guardar ID del usuario en sessionStorage
-        sessionStorage.setItem("userId", data.id);
-        sessionStorage.setItem("user_name",nombreCompleto )
         // Redirigir al dashboard o index
         //window.location.href = "index.html";
 

@@ -21,7 +21,8 @@ async function cargarPerfilesDisponibles() {
     const container = document.getElementById("perfiles-container");
 
     try {
-        const res = await fetch(URL_DATOSIMULADOS);
+        const res = await http("GET",`${URL_ofertantes}/estado/disponible`)
+        //const res = await fetch(URL_DATOSIMULADOS);
         if (!res.ok) throw new Error("Error al cargar perfiles");
 
         const ofertantes = await res.json();
@@ -46,7 +47,7 @@ async function cargarPerfilesDisponibles() {
 
 
 //============= obtener todas las ofertas por area =============
-async function getOfertantePorArea(areaRequerida) {
+async function getOfertantePorArea(idConvocatoria) {
     /*
        Hay un problema con esta función y es que en el backend de los ofertantes no existe ninguna funcion para traer las ofertantes 
        por area en especifico. Así que creé un endpoint sugerido por chapeto para cuando esta función se cree.
@@ -67,9 +68,9 @@ async function getOfertantePorArea(areaRequerida) {
 
     try {
         //cambiar cuando se conecte al backend
-        //const result = await http("GET",`${URL_ofertantes}/${areaRequerida}`)
+        const result = await http("GET",`${URL_convocatorias}/${idConvocatoria}/match-ofertas`)
         
-         const result = await http("GET",URL_DATOSIMULADOS)
+         //const result = await http("GET",URL_DATOSIMULADOS)
         const ofertantes = await result.json()
         
         ofertantes.forEach(item => {
