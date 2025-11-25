@@ -25,6 +25,7 @@
             <div id="titulo" class="py-5">
                 <h1 class="font-bold pb-6 text-center text-3xl">Tu próxima producción empieza aquí</h1>
             </div>
+             <!-- FOOOORM -->
             <form id="multipleForm" onsubmit="registroUsuarios(event)">
                 <div id="step1" class="step-content">
                     <div class="mb-4">
@@ -144,7 +145,25 @@
         </div>
     </div>
     </div>
-    
+
+    <!--Aqui estan los toasted-->
+    <div id="correct_toasted"
+        class="hidden rounded-l-3xl text-white absolute bottom-7 right-0 z-999 w-1/4 h-30 bg-green-800">
+        <div id="dad_toasted_message" class="font-semibold px-4 py-2 flex items-center ">
+            <span id="toasted_message_content" class="px-4 inline "></span>
+            <img class="w-11 " src="https://cdn-icons-png.flaticon.com/512/5290/5290058.png" alt="">
+        </div>
+    </div>
+    <div id="noCorrect_toasted"
+        class="hidden rounded-l-3xl text-white absolute bottom-7 right-0 z-999 w-1/4 h-30 bg-red-800">
+        <div id="toasted_message" class="font-semibold px-4 py-2 flex items-center">
+            <span class="px-4 inline ">Hubo un problema agregando el usuario <p id="id_usuario" class="inline"></p>
+            </span>
+            <img class="w-11 " src="https://cdn-icons-png.flaticon.com/512/399/399274.png" alt="">
+        </div>
+    </div>
+
+
     <script src="./js/microservices/convocatoria.js"></script>
     <script src="./js/microservices/postulante.js"></script>
     <script src="./js/microservices/usuarios.js"></script>

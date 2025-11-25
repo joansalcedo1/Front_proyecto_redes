@@ -24,9 +24,13 @@ async function registroUsuarios(event) {
         }
         const data = await res.json()
         console.log("Usuario creado:", data);
+        gestorToastedCorrecto(`Usuario ${usuario.nombre} creado con exito. Rederigiendo al login...`)
 
-        alert("Usuario creado correctamente");
-        window.location.href = "login.html";
+        setTimeout(() => {
+            window.location.href = "login.html";
+        }, 5000);
+
+
 
         return data
 
@@ -56,7 +60,15 @@ async function inicioSesion(e) {
         });*/
 
         const res = await http("GET", URL_SIMULADA)
+        if (email == res.email & password == res.password) {
+            estorToastedCorrecto(`Bienvenido ${usuario.nombre}. Rederigiendo al index...`)
 
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 5000);
+        }else{
+            errorBox.classList.remove("hidden");
+        }
         if (!res.ok) {
             errorBox.classList.remove("hidden");
             return;

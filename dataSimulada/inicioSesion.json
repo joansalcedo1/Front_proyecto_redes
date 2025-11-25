@@ -4,6 +4,7 @@
   "nombre": "Camila",
   "apellido": "Rojas",
   "email": "camila.rojas@example.com",
+  "password": 12345,
   "rol": "Fotografía",
   "perfil": "Apasionada por la dirección de fotografía. Experiencia en cortometrajes."
 }
