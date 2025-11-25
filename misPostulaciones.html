@@ -4,81 +4,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>postulaciones</title>
+    <title>Mis Postulaciones</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body>
     <div class="flex flex-row h-screen bg-[#E9F4F5]">
 
-        <div id="dad_menu" class="p-4 w-80 h-full flex-shrink-0">
-
-            <div class="w-full h-full px-5 py-10 bg-white flex flex-col rounded-3xl">
+        <!-- MENU LATERAL (Se mantiene igual) -->
+        <div id="dad_menu" class="p-4 w-80 h-full flex-shrink-0 hidden md:block">
+            <div class="w-full h-full px-5 py-10 bg-white flex flex-col rounded-3xl shadow-sm">
                 <a href="./perfil.html">
                     <div id="content_superior">
-                        <h3 class="font-bold pb-6 text-center text-xl">Unifilm</h3>
+                        <h3 class="font-bold pb-6 text-center text-xl text-[#0D3238]">Unifilm</h3>
 
-                        <div class="flex items-center border border-gray-300 py-3 ps-4 rounded-xl">
+                        <div class="flex items-center border border-gray-100 py-3 ps-4 rounded-xl hover:bg-gray-50 transition">
                             <img id="img_perfil"
-                                src="https://images.squarespace-cdn.com/content/v1/5f632bf01807e96e340523c0/1652985648211-C73XPXO1FDM1YXHTV6SA/buyer-persona-branding"
-                                alt="Foto de perfil" class="w-14 h-14 rounded-full object-cover">
+                                src=""
+                                alt="Foto de perfil" class="w-14 h-14 rounded-full object-cover shadow-sm">
                             <div class="px-3">
-                                <p id="nombre_perfil" class="font-bold text-sm">Michael Rodriguez</p>
-                                <p id="rol_perfil" class="text-gray-400 text-xs">Fotografía</p>
+                                <p id="nombre_perfil" class="font-bold text-sm text-gray-800">Cargando...</p>
+                                <p id="rol_perfil" class="text-gray-400 text-xs">...</p>
                             </div>
                         </div>
+                    </div>
                 </a>
                 <div id="dad_paginas" class="space-y-6 pt-7 px-2 font-medium text-gray-700">
-                    <a href="./index.html" class="flex items-center hover:text-blue-600 transition-colors">
-                        <img class="inline-block mr-4 w-6 h-6"
+                    <a href="./index.html" class="flex items-center hover:text-[#23CCE8] transition-colors group">
+                        <img class="inline-block mr-4 w-6 h-6 opacity-70 group-hover:opacity-100"
                             src="https://cdn-icons-png.flaticon.com/512/1946/1946488.png" alt="Icono Inicio">
                         <span>Inicio</span>
                     </a>
-                    <a href="./misPostulaciones.html" class="flex items-center hover:text-blue-600 transition-colors">
+                    <a href="./misPostulaciones.html" class="flex items-center text-[#23CCE8] transition-colors group">
                         <img class="inline-block mr-4 w-6 h-6"
                             src="https://cdn-icons-png.flaticon.com/512/2312/2312472.png" alt="Icono Postulaciones">
-                        <span class="font-bold text-black">Mis postulaciones</span>
+                        <span class="font-bold">Mis postulaciones</span>
                     </a>
-                    <a href="./misConvocatorias.html" class="flex items-center hover:text-blue-600 transition-colors">
-                        <img class="inline-block mr-4 w-6 h-6"
+                    <a href="./misConvocatorias.html" class="flex items-center hover:text-[#23CCE8] transition-colors group">
+                        <img class="inline-block mr-4 w-6 h-6 opacity-70 group-hover:opacity-100"
                             src="https://cdn-icons-png.flaticon.com/512/1061/1061544.png" alt="Icono Convocatorias">
                         <span>Mis convocatorias</span>
                     </a>
-                    <a href="./misProyectos.html" class="flex items-center hover:text-blue-600 transition-colors">
-                        <img class="inline-block mr-4 w-6 h-6"
+                    <a href="./misProyectos.html" class="flex items-center hover:text-[#23CCE8] transition-colors group">
+                        <img class="inline-block mr-4 w-6 h-6 opacity-70 group-hover:opacity-100"
                             src="https://cdn-icons-png.flaticon.com/512/702/702814.png" alt="Icono Proyectos">
                         <span>Mis proyectos</span>
                     </a>
 
                 </div>
+                
+                <div id="dad_cerrar" class="mt-auto pt-8">
+                     <button onclick="cerrarSesion()" class="flex items-center text-gray-700 hover:text-red-500 transition-colors font-medium w-full text-left">
+                        <img class="inline-block mr-4 w-6 h-6"
+                            src="https://cdn-icons-png.flaticon.com/512/13430/13430845.png" alt="Icono Cerrar Sesión">
+                        <span>Cerrar sesión</span>
+                    </button>
+                </div>
             </div>
+        </div>
 
-            <div id="dad_cerrar" class="mt-auto pt-8">
-                <a href="#" class="flex items-center text-gray-700 hover:text-red-500 transition-colors font-medium">
-                    <img class="inline-block mr-4 w-6 h-6"
-                        src="https://cdn-icons-png.flaticon.com/512/13430/13430845.png" alt="Icono Cerrar Sesión">
-                    <span>Cerrar sesión</span>
-                </a>
+        <!-- CONTENIDO PRINCIPAL -->
+        <div id="main_content" class="flex-grow p-4 md:p-6 overflow-hidden flex flex-col">
+            <div class="h-full w-full bg-white/60 backdrop-blur-sm rounded-3xl p-6 md:p-8 shadow-sm flex flex-col overflow-hidden">
+                
+                <!-- Encabezado -->
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+                    <div>
+                        <h1 class="text-3xl font-bold text-[#0D3238]">Mis postulaciones</h1>
+                        <p class="text-gray-500 mt-1 text-sm">Gestiona y revisa el estado de tus aplicaciones a proyectos.</p>
+                    </div>
+                    <!-- Stats o Filtros (Opcional visual) -->
+                    <div class="mt-4 md:mt-0 bg-white px-4 py-2 rounded-full shadow-sm border border-gray-100">
+                        <span class="text-sm font-semibold text-gray-600">Total: <span id="total-postulaciones" class="text-[#23CCE8]">0</span></span>
+                    </div>
+                </div>
+
+                <!-- Grid de Tarjetas (Scrollable) -->
+                <div id="postulaciones-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-6 overflow-y-auto pr-2 pb-4">
+                    <!-- Aquí se inyectan las tarjetas mediante JS -->
+                    <div class="col-span-full text-center py-20 text-gray-400">
+                        <p>Cargando tus postulaciones...</p>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
 
-    <div id="main_content" class="flex-grow p-4">
-        <div class="h-full w-full bg-white rounded-3xl p-6">
-            <h1 class="text-2xl font-semibold text-gray-800">Contenido Principal (Carol Natalia)</h2>
-            <p>Aquí irá el contenido de la página hecho por Carolll (revisar figma): </p>
-                <a class="text-blue-500 underline" href="https://www.figma.com/design/5jB2ykxmqv1mEkgJjW2rT6/Untitled?node-id=0-1&t=XKjadN8AfwQDyUgk-1">Link al figma</a>
+    <!-- TEMPLATE DE LA TARJETA DE POSTULACIÓN -->
+    <template id="postulacion-template">
+        <article class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 group relative overflow-hidden">
+            <!-- Decoración lateral -->
+            <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-[#23CCE8] to-[#0FF0DE]"></div>
+
+            <div class="pl-3">
+                <div class="flex justify-between items-start mb-2">
+                    <h2 id="titulo-convocatoria" class="text-xl font-bold text-gray-800 leading-tight pr-2">Titulo Convocatoria</h2>
+                    <!-- Badge de Estado -->
+                    <span id="estado-badge" class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide bg-yellow-100 text-yellow-700 whitespace-nowrap">
+                        Pendiente
+                    </span>
+                </div>
+
+                <div class="mb-4">
+                    <p class="text-sm text-gray-500 font-medium">Postulante: <span id="nombre-usuario" class="text-gray-700">Nombre</span></p>
+                    <p class="text-xs text-gray-400 mt-1 flex items-center gap-1">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2838/2838779.png" class="w-3 h-3 opacity-50">
+                        Aplicado el: <span id="fecha-post">Fecha</span>
+                    </p>
+                </div>
+
+                <!-- Mensaje de presentación -->
+                <div class="bg-gray-50 rounded-xl p-3 mb-4 border border-gray-100">
+                    <p class="text-xs font-semibold text-gray-400 mb-1">Tu mensaje:</p>
+                    <p id="mensaje-pres" class="text-sm text-gray-600 italic line-clamp-3">
+                        "Mensaje de presentación..."
+                    </p>
+                </div>
+
+                <div class="flex justify-end pt-2 border-t border-gray-100">
+                    <button class="text-red-400 hover:text-red-600 text-sm font-semibold transition-colors flex items-center gap-2" onclick="alert('Funcionalidad de cancelar pendiente de backend')">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1828/1828843.png" class="w-4 h-4">
+                        Cancelar postulación
+                    </button>
+                </div>
+            </div>
+        </article>
+    </template>
+    
+    <!-- Toast Notifications -->
+    <div id="correct_toasted" class="hidden rounded-l-3xl text-white absolute bottom-7 right-0 z-50 w-auto min-w-[300px] bg-green-600 shadow-lg transition-transform transform translate-x-0">
+        <div class="font-semibold px-6 py-4 flex items-center justify-between gap-4">
+            <span id="toasted_message_content" class="inline-block">Mensaje éxito</span>
+            <img class="w-8 h-8 opacity-80" src="https://cdn-icons-png.flaticon.com/512/5290/5290058.png" alt="Check">
         </div>
     </div>
-    </div>
+
+    <!-- Scripts -->
     <script src="./js/utilities.js"></script>
+    <script src="./js/microservices/postulante.js"></script> <!-- Lógica principal aquí -->
     <script src="./js/microservices/convocatoria.js"></script>
-    <script src="./js/microservices/postulante.js"></script>
+    
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            consultarInfoUsuario()
+            consultarInfoUsuario(); // Info del sidebar
+            cargarMisPostulaciones(); // Cargar la lista central
         });
     </script>
 </body>
-
 </html>

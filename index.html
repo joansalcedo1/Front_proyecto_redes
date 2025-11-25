@@ -71,10 +71,43 @@
         </div>
 
         <!-- OPORTUNIDADES PARA TI -->
-        <div id="oportunidades_paraTi" class="flex-grow p-4">
-            <div class="h-full w-full rounded-3xl p-6">
-                <h2 class="text-2xl text-center font-semibold text-gray-800">Oportunidades para ti</h2>
-                <p>Aquí va lo que hizo carol</p>
+        <!-- CONTENIDO CENTRAL: OPORTUNIDADES PARA TI -->
+        <div id="oportunidades_paraTi" class="flex-grow p-4 overflow-hidden flex flex-col">
+            <div class="h-full w-full flex flex-col">
+                
+                <!-- Encabezado y Filtros -->
+                <div class="mb-6">
+                    <h2 class="text-3xl font-bold text-[#0D3238] text-center mb-6">Oportunidades para ti</h2>
+                    
+                    <div class="flex gap-4 max-w-4xl mx-auto w-full">
+                        <!-- Buscador -->
+                        <div class="flex-grow bg-white rounded-full shadow-sm flex items-center px-4 py-2 border border-transparent hover:border-gray-200 transition-colors">
+                            <img src="https://cdn-icons-png.flaticon.com/512/54/54481.png" class="w-4 h-4 opacity-40 mr-3" alt="search">
+                            <input type="text" id="buscador-oportunidades" placeholder="Buscar por rol, proyecto..." class="w-full bg-transparent outline-none text-gray-600 placeholder-gray-400">
+                        </div>
+                        
+                        <!-- Filtro Área -->
+                        <div class="w-48 bg-white rounded-full shadow-sm px-4 py-2 relative border border-transparent hover:border-gray-200 transition-colors">
+                            <select id="filtro-area" class="w-full bg-transparent outline-none text-gray-600 appearance-none cursor-pointer">
+                                <option value="">Área</option>
+                                <option value="Fotografía">Fotografía</option>
+                                <option value="Sonido">Sonido</option>
+                                <option value="Arte">Arte</option>
+                                <option value="Producción">Producción</option>
+                                <option value="Dirección">Dirección</option>
+                                <option value="Guion">Guion</option>
+                            </select>
+                            <img src="https://cdn-icons-png.flaticon.com/512/2985/2985150.png" class="w-3 h-3 absolute right-4 top-1/2 transform -translate-y-1/2 opacity-50 pointer-events-none" alt="arrow">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contenedor Scrollable de Tarjetas -->
+                <div id="oportunidades-container" class="flex-grow overflow-y-auto pr-2 space-y-4 max-w-4xl mx-auto w-full pb-4">
+                    <!-- Aquí se inyectan las tarjetas -->
+                    <div class="text-center py-10 text-gray-400">Cargando oportunidades...</div>
+                </div>
+
             </div>
         </div>
 
@@ -91,6 +124,41 @@
             </div>
         </div>
     </div>
+
+    <template id="oportunidad-template">
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-transparent hover:border-[#23CCE8] transition-all duration-300 relative group">
+            <div class="flex flex-col md:flex-row justify-between items-start gap-4">
+                
+                <!-- Info Principal -->
+                <div class="flex-grow">
+                    <h3 id="titulo-convocatoria" class="text-xl font-bold text-gray-800 mb-1">Titulo de la Convocatoria</h3>
+                    <p class="text-sm font-semibold text-gray-600 mb-3">
+                        Proyecto: <span id="nombre-proyecto" class="font-normal text-gray-800">Nombre del Proyecto</span>
+                    </p>
+                    
+                    <div class="w-12 h-0.5 bg-gray-200 mb-3"></div> <!-- Separador -->
+
+                    <p id="descripcion-convocatoria" class="text-sm text-gray-500 mb-4 leading-relaxed line-clamp-2">
+                        Descripción breve de la convocatoria...
+                    </p>
+
+                    <div class="flex flex-wrap gap-y-1 gap-x-6 text-sm">
+                        <p class="text-gray-500">Área Requerida: <span id="area-requerida" class="font-bold text-gray-800">Rol</span></p>
+                        <p class="text-gray-500 italic">Hasta el <span id="fecha-cierre" class="font-medium text-gray-700">DD/MM/AAAA</span></p>
+                    </div>
+                </div>
+
+                <!-- Botón de Acción -->
+                <div class="flex-shrink-0 self-end md:self-center mt-2 md:mt-0">
+                    <button id="btn-postularme" class="bg-gradient-to-r from-[#23CCE8] to-[#0FF0DE] text-white font-bold py-2 px-8 rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300">
+                        Postularme
+                    </button>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    
 
     <!-- TEMPLATE INVISIBLE PARA TARJETAS -->
     <template id="perfil-template">
@@ -134,6 +202,17 @@
         </div>
     </template>
 
+    <!-- Toasted Notifications -->
+    <div id="correct_toasted" class="hidden fixed bottom-5 right-5 z-50 bg-green-600 text-white px-6 py-3 rounded-l-2xl shadow-xl flex items-center gap-3 transition-transform transform translate-x-0">
+        <span id="toasted_message_content" class="font-semibold">Acción exitosa</span>
+        <img class="w-6 h-6 invert" src="https://cdn-icons-png.flaticon.com/512/5290/5290058.png" alt="Check">
+    </div>
+    
+    <div id="inCorrect_toasted" class="hidden fixed bottom-5 right-5 z-50 bg-red-600 text-white px-6 py-3 rounded-l-2xl shadow-xl flex items-center gap-3 transition-transform transform translate-x-0">
+        <span id="toasted_message_content" class="font-semibold">Error</span>
+        <img class="w-6 h-6 invert" src="https://cdn-icons-png.flaticon.com/512/399/399274.png" alt="Error">
+    </div>
+
 
     <!-- SCRIPTS -->
 
@@ -145,6 +224,7 @@
 
 
     <script>
+        cargarOportunidades(); //convocatoria.js
         cargarPerfilesDisponibles(); //ofertantes.js
         consultarInfoUsuario(); //utilities.js
     </script>

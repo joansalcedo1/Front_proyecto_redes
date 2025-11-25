@@ -8,72 +8,106 @@ const closeBtn = document.getElementById('close-modal-btn');
 const overlay = document.getElementById('modal-overlay');
 
 
-//=============  TRAE TODAS LAS CONVOCATORIAS HECHAS POR UN USUARIO ============= 
-async function cargarDatos() {
-    //se llama en el script final de misConvocatorias.html
+// ===========================================================================================================
+//                                      LOGICA PARA INDEX (OPORTUNIDADES)
+// ===========================================================================================================
 
-    /*
-        Hay un problema con esta función y es que en el backend de las convocatorias no existe ninguna funcion para traer las convocatorias 
-        de un usuario en especifico. Así que creé un endpoint sugerido por chapeto para esta función se creé.
-        El puerto es el que esta actualmente (23/11/2025 4:07 pm) en la rama de juan david 
-        |
-        V
+// ============= CARGAR TODAS LAS OPORTUNIDADES (INDEX) =============
+async function cargarOportunidades() {
+    const container = document.getElementById("oportunidades-container");
+    const template = document.getElementById("oportunidad-template");
+    
+    // Si no estamos en el index (no existe el contenedor), salimos
+    if (!container || !template) return;
 
-        http://localhost:3308/apiRedes/convocatoria/:id_usuarioOrganizador
-     */
-
-    const URL_DATOSIMULADOS = "./dataSimulada/convocatoria.json"
-
+    // Endpoint: GET http://localhost:3308/apiRedes/convocatoria
     try {
-        //DESCOMENTAR CUANDO SE CONECTE CON EL BACKEND 
-        const res = await http("GET",`${URL_convocatorias}/usuario/${userId}`) //=> consulta convocatorias, sacado de la documentacion de convocatorias
-        //const res = await http("GET", URL_DATOSIMULADOS)
-        if (!res.ok) {
-            throw new Error(`Error al cargar los datos: ${res.statusText}`);
-        }
+        console.log("Cargando oportunidades desde:", URL_convocatorias);
+        const res = await http("GET", URL_convocatorias);
+        
+        if (!res.ok) throw new Error("Error al obtener convocatorias");
+        
+        oportunidadesData = await res.json();
+        renderOportunidades(oportunidadesData);
+        configurarFiltrosIndex();
 
-        convocatorias = await res.json();
-        renderConvocatorias(convocatorias)
     } catch (error) {
-        console.error(error)
+        console.error(error);
+        container.innerHTML = `
+            <div class="text-center py-10 opacity-70">
+                <img src="https://cdn-icons-png.flaticon.com/512/11482/11482703.png" class="w-16 h-16 mx-auto mb-2 grayscale opacity-50">
+                <p class="text-gray-500">No hay convocatorias disponibles por el momento.</p>
+            </div>`;
     }
 }
 
+// ============= RENDERIZAR TARJETAS EN INDEX =============
+function renderOportunidades(lista) {
+    const container = document.getElementById("oportunidades-container");
+    const template = document.getElementById("oportunidad-template");
+    
+    container.innerHTML = "";
 
-//=============  Renderiza todas las convocatorias ============= 
-function renderConvocatorias(convocatorias) {
+    if (lista.length === 0) {
+        container.innerHTML = `<p class="text-center text-gray-500 py-10">No se encontraron resultados.</p>`;
+        return;
+    }
 
+    lista.forEach(item => {
+        // Clonar template
+        const clone = template.content.cloneNode(true);
 
-    const template = document.getElementById("convocatoria-template")
-    const grid = document.getElementById("convocatorias-grid")
+        // Llenar datos
+        clone.querySelector("#titulo-convocatoria").textContent = item.tituloCon;
+        clone.querySelector("#nombre-proyecto").textContent = item.tituloProyecto || "Proyecto General";
+        clone.querySelector("#descripcion-convocatoria").textContent = item.descripcion || "Sin descripción.";
+        clone.querySelector("#area-requerida").textContent = item.areaRequerida;
+        
+        // Formatear Fecha
+        const fecha = item.fecha_cierre ? new Date(item.fecha_cierre).toLocaleDateString() : "Indefinido";
+        clone.querySelector("#fecha-cierre").textContent = fecha;
 
+        // Configurar Botón Postularme
+        const btn = clone.querySelector("#btn-postularme");
+        
+        // Verificar si el estado es 'activo' (opcional, según tu lógica de negocio)
+        if(item.estado && item.estado.toLowerCase() !== 'activo' && item.estado.toLowerCase() !== 'abierta') {
+             btn.disabled = true;
+             btn.textContent = "Cerrada";
+             btn.classList.add("bg-gray-400", "cursor-not-allowed");
+             btn.classList.remove("bg-gradient-to-r", "hover:scale-105");
+        } else {
+             btn.onclick = () => crearPostulacion(item.idConvocatoria, btn); // Función en postulante.js
+        }
 
-    convocatorias.forEach(item => {
-        const clone = template.content.cloneNode(true)
-        clone.querySelector("#id_convocatoria").textContent = item.idConvocatoria
-        clone.querySelector("#nombre_convocatoria").textContent = item.tituloCon
-        clone.querySelector("#titulo_proyecto").textContent = item.tituloProyecto
-        clone.querySelector("#descripcion_convocatoria").textContent = item.descripcion
-        clone.querySelector("#area_requerida_convocatoria").textContent = item.areaRequerida
-        clone.querySelector("#fechaMax_convocatoria").textContent = item.fecha_cierre
-        /*clone.querySelector("#btn_convocatoria").onclick = () => {
-            const id = item.idConvocatoria
-            const gridPostulantes = document.getElementById("postulante-grid")
-            if (gridPostulantes.hasChildNodes()) {
-                gridPostulantes.innerHTML = '';
-            }
-            let tituloConvocatoria = document.querySelector("#titulo_convocatoria")
-            tituloConvocatoria.textContent= item.tituloCon
-            console.log(item.tituloCon)
-            getPostulantes_convocatoria(id);
-            console.log(id)
-        }*/
+        container.appendChild(clone);
+    });
+}
 
-        grid.appendChild(clone)
-    })
+// ============= FILTROS (BUSCADOR Y SELECT) =============
+function configurarFiltrosIndex() {
+    const buscador = document.getElementById("buscador-oportunidades");
+    const filtroArea = document.getElementById("filtro-area");
 
+    const filtrar = () => {
+        const texto = buscador.value.toLowerCase();
+        const area = filtroArea.value;
 
+        const filtrados = oportunidadesData.filter(item => {
+            const matchTexto = 
+                item.tituloCon.toLowerCase().includes(texto) || 
+                (item.tituloProyecto && item.tituloProyecto.toLowerCase().includes(texto));
+            
+            const matchArea = area === "" || item.areaRequerida === area;
 
+            return matchTexto && matchArea;
+        });
+
+        renderOportunidades(filtrados);
+    };
+
+    if(buscador) buscador.addEventListener("input", filtrar);
+    if(filtroArea) filtroArea.addEventListener("change", filtrar);
 }
 
 
