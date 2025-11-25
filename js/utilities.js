@@ -129,6 +129,8 @@ async function consultarInfoUsuario() {
         document.querySelector("#nombre_perfil").textContent = data.nombre;
         document.querySelector("#rol_perfil").textContent = data.rol;
         document.querySelector("#img_perfil").src = data.srcFotoPerfil;
+        document.querySelector("#nombre_perfil_grande").textContent = data.nombre
+        document.querySelector("#rol_perfil_grande").textContent = data.rol
     } catch (error) {
         console.error(error.message)
         throw error;

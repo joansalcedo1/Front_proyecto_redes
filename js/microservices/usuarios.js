@@ -75,6 +75,7 @@ async function inicioSesion(event) {
             sessionStorage.setItem("userId", data.usuario.id);
             sessionStorage.setItem("user_name", data.usuario.nombre)
             sessionStorage.setItem("user_rol",data.usuario.rol)
+            sessionStorage.setItem("user_email",email)
         } else {
             errorBox.classList.remove("hidden");
 
