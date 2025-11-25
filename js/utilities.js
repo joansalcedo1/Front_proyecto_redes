@@ -134,3 +134,11 @@ async function consultarInfoUsuario() {
         throw error;
     }
 }
+
+function cerrarSesion() {
+    sessionStorage.clear()
+    gestorToastedCorrecto(`Cerrando sesión...`)
+    setTimeout(() => {
+        window.location.href = "login.html";
+    }, 5000);
+}

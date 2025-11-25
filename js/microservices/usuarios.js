@@ -80,8 +80,10 @@ async function inicioSesion(event) {
             errorBox.classList.remove("hidden");
             return;
         }
+        const nombreCompleto = data.nombre +" "+ data.apellido
         // Guardar ID del usuario en sessionStorage
         sessionStorage.setItem("userId", data.id);
+        sessionStorage.setItem("user_name",nombreCompleto )
         // Redirigir al dashboard o index
         //window.location.href = "index.html";
 
@@ -130,10 +132,3 @@ function nextStep() {
     }
 }
 
-function cerrarSesion() {
-    sessionStorage.clear()
-    gestorToastedCorrecto(`Cerrando sesión...`)
-    setTimeout(() => {
-        window.location.href = "login.html";
-    }, 5000);
-}

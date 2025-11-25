@@ -127,6 +127,11 @@ function configurarModalProyectos() {
     const btnAbrir = document.getElementById("btn-abrir-modal");
     const btnCerrar = document.getElementById("btn-cerrar-modal");
     const form = document.getElementById("form-proyecto");
+    let nombreUsuario = sessionStorage.getItem("user_name")
+    console.log(nombreUsuario)
+    document.getElementById("nombreOrganizador").value = nombreUsuario ;
+
+   
 
     if (!modal || !btnAbrir || !btnCerrar || !form) return;
 
@@ -145,6 +150,14 @@ function configurarModalProyectos() {
 
         const data = new FormData(form);
 
+        // ====== Tomamos los checkbox ======
+        const lucesDep = document.getElementById("lucesDep_check")?.checked ? 1 : 0;
+        const arteDep = document.getElementById("arteDep_check")?.checked ? 1 : 0;
+        const camaraDep = document.getElementById("camaraDep_check")?.checked ? 1 : 0;
+        const postProdDep = document.getElementById("postProdDep_check")?.checked ? 1 : 0;
+        const direccionDep = document.getElementById("direccionDep_check")?.checked ? 1 : 0;
+        const prodDep = document.getElementById("prodDep_check")?.checked ? 1 : 0;
+
         const nuevo = {
             idProyecto: Date.now(),
             titulo: data.get("titulo"),
@@ -154,12 +167,14 @@ function configurarModalProyectos() {
             fechaInicio: data.get("fechaInicio"),
             fechaFin: data.get("fechaFin"),
             url: data.get("url") || "#",
-            lucesDep: data.get("lucesDep") === "on",
-            arteDep: data.get("arteDep") === "on",
-            camaraDep: data.get("camaraDep") === "on",
-            prodDep: data.get("prodDep") === "on",
-            postProdDep: data.get("postProdDep") === "on",
-            direccionDep: data.get("direccionDep") === "on",
+
+            // ====== Aquí los nuevos valores ======
+            lucesDep,
+            arteDep,
+            camaraDep,
+            postProdDep,
+            direccionDep,
+            prodDep,
         };
 
         proyectosData.push(nuevo);
