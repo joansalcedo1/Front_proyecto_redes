@@ -134,7 +134,7 @@ async function consultarInfoUsuario() {
         document.querySelector("#nombre_perfil_grande").textContent = data.nombre
         document.querySelector("#rol_perfil_grande").textContent = data.rol
         document.querySelector("#email_perfil_grande").textContent = userEmail
-
+        document.querySelector("#perfil_texto").textContent = data.perfil
     } catch (error) {
         console.error(error.message)
         throw error;
