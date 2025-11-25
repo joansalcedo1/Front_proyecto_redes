@@ -120,6 +120,8 @@ async function http(method, url, data) {
 
 async function consultarInfoUsuario() {
     const URL_SIMULADA = "./dataSimulada/inicioSesion.json"
+    const userEmail = sessionStorage.getItem("user_email")
+    console.log(userEmail)
     try {
         const result = await http("GET",`${URL_usuarios}/${userId}`)
         //const result = await http("GET", URL_SIMULADA)
@@ -131,6 +133,8 @@ async function consultarInfoUsuario() {
         document.querySelector("#img_perfil").src = data.srcFotoPerfil;
         document.querySelector("#nombre_perfil_grande").textContent = data.nombre
         document.querySelector("#rol_perfil_grande").textContent = data.rol
+        document.querySelector("#email_perfil_grande").textContent = userEmail
+
     } catch (error) {
         console.error(error.message)
         throw error;

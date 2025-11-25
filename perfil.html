@@ -62,27 +62,143 @@
                 </div>
             </div>
         </div>
+        <div id="main_content" class="flex-grow p-6 overflow-y-auto">
+            <div class="h-full w-full max-w-5xl mx-auto space-y-6">
 
-        <div id="main_content" class="flex-grow p-4">
-            <div class="h-full w-full  rounded-3xl p-6">
-                <div class="bg-white w-full flex  border border-gray-300 py-3 ps-4 px-4 rounded-xl">
-                    <img id="img_perfil"
-                        src="https://images.squarespace-cdn.com/content/v1/5f632bf01807e96e340523c0/1652985648211-C73XPXO1FDM1YXHTV6SA/buyer-persona-branding"
-                        alt="Foto de perfil" class="w-50 h-40 rounded-full object-cover">
-                    <div class="px-3">
-                        <p id="nombre_perfil_grande" class="font-bold text-lg"></p>
-                        <p id="rol_perfil_grande" class="text-gray-400 text-lg"></p>
-                        <img id="img_perfil_" src="https://cdn-icons-png.flaticon.com/512/3494/3494619.png"
-                            alt="foto_email" class="inline-block w-5">
-                        <p id="email_perfil_grande" class="inline-block mr-4 text-gray-400 text-lg"></p>
-                        <div class="flex flex-col py-4">
-                            <button type="button" class="bg-gradient-to-r from-[#23CCE8] to-[#0FF0DE] 
-        text-white font-bold py-3 px-8 rounded-3xl shadow-md
-        hover:shadow-xl hover:scale-105 transition duration-300 ease-in-out">Editar perfil</button>
+                <div class="bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden relative">
+
+                    <div class="h-32 bg-gradient-to-r from-[#23CCE8] to-[#0FF0DE]"></div>
+
+                    <div class="px-8 pb-8 flex flex-col md:flex-row items-center md:items-end -mt-16 md:-mt-20 gap-6">
+
+                        <div class="relative">
+                            <img id="img_perfil_grande"
+                                src="https://images.squarespace-cdn.com/content/v1/5f632bf01807e96e340523c0/1652985648211-C73XPXO1FDM1YXHTV6SA/buyer-persona-branding"
+                                alt="Foto de perfil"
+                                class="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover border-4 border-white shadow-md bg-white">
+
+                            <button
+                                class="absolute bottom-2 right-2 bg-white p-2 rounded-full shadow hover:bg-gray-100 text-gray-500 transition">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z">
+                                    </path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="flex-1 text-center md:text-left mb-2">
+                            <h2 id="nombre_perfil_grande" class="text-3xl font-bold text-gray-800">Cargando...</h2>
+                            <p id="rol_perfil_grande" class="text-[#23CCE8] font-semibold text-lg">Cargando...</p>
+
+                            <div
+                                class="flex items-center justify-center md:justify-start gap-2 mt-2 text-gray-500 text-sm">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                                    </path>
+                                </svg>
+                                <span id="email_perfil_grande">email@ejemplo.com</span>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <button type="button"
+                                class="bg-gray-800 hover:bg-gray-900 text-white font-medium py-2 px-6 rounded-full shadow transition-transform transform hover:-translate-y-1 flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z">
+                                    </path>
+                                </svg>
+                                Editar Perfil
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                    <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 h-fit">
+                        <h3 class="font-bold text-gray-800 text-lg mb-4 border-b pb-2">Información</h3>
+
+                        <div class="space-y-4">
+                            <div>
+                                <span
+                                    class="block text-xs font-bold text-gray-400 uppercase tracking-wider">Ubicación</span>
+                                <span class="text-gray-700 font-medium flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-cyan-500" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
+                                        </path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    </svg>
+                                    Cali, Colombia
+                                </span>
+                            </div>
+
+                            <div>
+                                <span class="block text-xs font-bold text-gray-400 uppercase tracking-wider">Miembro
+                                    desde</span>
+                                <span class="text-gray-700 font-medium">Noviembre 2025</span>
+                            </div>
+
+                            <div>
+                                <span
+                                    class="block text-xs font-bold text-gray-400 uppercase tracking-wider">Redes</span>
+                                <div class="flex gap-3 mt-1">
+                                    <a href="https://x.com/?lang=es" class="text-gray-400 hover:text-blue-500"><svg class="w-5 h-5"
+                                            fill="currentColor" viewBox="0 0 24 24">
+                                            <path
+                                                d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
+                                        </svg></a>
+                                    <a href="https://www.instagram.com/" class="text-gray-400 hover:text-pink-500"><svg class="w-5 h-5"
+                                            fill="currentColor" viewBox="0 0 24 24">
+                                            <path
+                                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                                        </svg></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="md:col-span-2 space-y-6">
+
+                        <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+                            <h3 class="font-bold text-gray-800 text-lg mb-3">Sobre mí</h3>
+                            <p class="text-gray-600 leading-relaxed text-sm">
+                                Apasionado por el cine y la fotografía con más de 5 años de experiencia en producciones
+                                independientes.
+                                Me especializo en la dirección de fotografía y el manejo de iluminación para crear
+                                atmósferas únicas.
+                                Siempre buscando nuevos retos creativos y colaborar con equipos multidisciplinarios.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+                            <h3 class="font-bold text-gray-800 text-lg mb-3">Habilidades y Áreas</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span
+                                    class="px-3 py-1 bg-cyan-50 text-cyan-600 rounded-full text-xs font-semibold">Fotografía</span>
+                                <span
+                                    class="px-3 py-1 bg-cyan-50 text-cyan-600 rounded-full text-xs font-semibold">Iluminación</span>
+                                <span
+                                    class="px-3 py-1 bg-cyan-50 text-cyan-600 rounded-full text-xs font-semibold">Edición</span>
+                                <span
+                                    class="px-3 py-1 bg-purple-50 text-purple-600 rounded-full text-xs font-semibold">Dirección
+                                    de Arte</span>
+                                <span
+                                    class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-xs font-semibold">Cámaras
+                                    Sony</span>
+                            </div>
                         </div>
 
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -90,8 +206,8 @@
     <script src="./js/microservices/convocatoria.js"></script>
     <script src="./js/microservices/postulante.js"></script>
     <script>
-    consultarInfoUsuario(); 
-    //utilities.js</script>
+        consultarInfoUsuario();
+        //utilities.js</script>
 </body>
 
 </html>
