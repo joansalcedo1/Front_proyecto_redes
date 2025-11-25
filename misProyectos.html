@@ -176,9 +176,8 @@
                     <label class="text-sm font-medium text-gray-700 block mb-1">Estado</label>
                     <select name="estado" required
                         class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-400">
-                        <option value="En curso">En curso</option>
+                        <option value="activo">Activo</option>
                         <option value="Finalizado">Finalizado</option>
-                        <option value="En revisión">En revisión</option>
                     </select>
                 </div>
 
@@ -200,31 +199,31 @@
                     <div class="grid grid-cols-2 gap-3 bg-gray-100 p-4 rounded-xl">
 
                         <label class="flex items-center space-x-2 text-sm text-gray-700">
-                            <input type="checkbox" name="lucesDep_check"
+                            <input type="checkbox" name="lucesDep_check" id="lucesDep_check"
                                 class="h-4 w-4 border-gray-300 rounded text-cyan-500 focus:ring-cyan-400">
                             <span>Luces</span>
                         </label>
 
                         <label class="flex items-center space-x-2 text-sm text-gray-700">
-                            <input type="checkbox" name="arteDep_check"
+                            <input type="checkbox" name="arteDep_check" id="arteDep_check"
                                 class="h-4 w-4 border-gray-300 rounded text-cyan-500 focus:ring-cyan-400">
                             <span>Arte</span>
                         </label>
 
                         <label class="flex items-center space-x-2 text-sm text-gray-700">
-                            <input type="checkbox" name="camaraDep_check"
+                            <input type="checkbox" name="camaraDep_check" id="camaraDep_check"
                                 class="h-4 w-4 border-gray-300 rounded text-cyan-500 focus:ring-cyan-400">
                             <span>Cámara</span>
                         </label>
 
                         <label class="flex items-center space-x-2 text-sm text-gray-700">
-                            <input type="checkbox" name="postProdDep_check"
+                            <input type="checkbox" name="postProdDep_check" id="postProdDep_check"
                                 class="h-4 w-4 border-gray-300 rounded text-cyan-500 focus:ring-cyan-400">
                             <span>Postproducción</span>
                         </label>
 
                         <label class="flex items-center space-x-2 text-sm text-gray-700">
-                            <input type="checkbox" name="direccionDep_check"
+                            <input type="checkbox" name="direccionDep_check" id="direccionDep_check"
                                 class="h-4 w-4 border-gray-300 rounded text-cyan-500 focus:ring-cyan-400">
                             <span>Dirección</span>
                         </label>
@@ -247,6 +246,86 @@
                     </button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!--MODAL PARA AGREGAR CONVOCATORIA -->
+    <div id="modal-convocatoria" class="fixed inset-0 overflow-y-auto flex items-center justify-center z-50 hidden">
+        <div class="fixed inset-0 backdrop-filter backdrop-blur-lg bg-gray-900 bg-opacity-50"></div>
+
+        <div class="bg-white rounded-2xl shadow-xl w-full max-w-lg p-6 relative z-10">
+            <button type="button" id="btn-cerrar-modal-conv"
+                class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-xl font-bold">×</button>
+
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Lanzar Convocatoria</h3>
+            <p class="text-sm text-gray-500 mb-4">Define qué perfiles necesitas para tu nuevo proyecto.</p>
+
+            <form id="form-convocatoria" class="space-y-4">
+                <input type="hidden" id="idProyectoRelacionado" name="idProyectoRelacionado">
+
+                <div>
+                    <label class="text-sm font-medium text-gray-700 block mb-1">Título de la búsqueda</label>
+                    <input name="titulo" type="text" required placeholder="Ej: Búsqueda Urgente..."
+                        class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-400">
+                </div>
+
+                <div>
+                    <label class="text-sm font-medium text-gray-700 block mb-2">Personas Solicitadas por Área</label>
+                    <div class="grid grid-cols-2 gap-4 bg-cyan-50 p-4 rounded-xl border border-cyan-100">
+
+                        <div>
+                            <label class="text-xs font-bold text-gray-600">Luces</label>
+                            <input name="cant_luces" type="number" min="0" value="0"
+                                class="w-full border border-gray-300 rounded px-2 py-1 text-sm">
+                        </div>
+                        <div>
+                            <label class="text-xs font-bold text-gray-600">Arte</label>
+                            <input name="cant_arte" type="number" min="0" value="0"
+                                class="w-full border border-gray-300 rounded px-2 py-1 text-sm">
+                        </div>
+                        <div>
+                            <label class="text-xs font-bold text-gray-600">Cámara</label>
+                            <input name="cant_camara" type="number" min="0" value="0"
+                                class="w-full border border-gray-300 rounded px-2 py-1 text-sm">
+                        </div>
+                        <div>
+                            <label class="text-xs font-bold text-gray-600">Dirección</label>
+                            <input name="cant_direccion" type="number" min="0" value="0"
+                                class="w-full border border-gray-300 rounded px-2 py-1 text-sm">
+                        </div>
+                        <div>
+                            <label class="text-xs font-bold text-gray-600">Post-Prod</label>
+                            <input name="cant_postprod" type="number" min="0" value="0"
+                                class="w-full border border-gray-300 rounded px-2 py-1 text-sm">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-2 flex space-x-3">
+                    <button type="button" id="btn-omitir-conv"
+                        class="w-1/3 py-2 rounded-full border border-gray-300 text-gray-500 hover:bg-gray-50">Omitir</button>
+                    <button type="submit"
+                        class="w-2/3 py-2 rounded-full bg-gradient-to-r from-[#23CCE8] to-[#0FF0DE] text-white font-semibold shadow-md hover:scale-105 transition">
+                        Lanzar Convocatoria
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- toasted's -->
+    <div id="correct_toasted"
+        class="hidden rounded-l-3xl text-white absolute bottom-7 right-0 z-999 w-1/4 h-30 bg-green-800">
+        <div id="dad_toasted_message" class="font-semibold px-4 py-2 flex items-center ">
+            <span id="toasted_message_content" class="px-4 inline "></span>
+            <img class="w-11 " src="https://cdn-icons-png.flaticon.com/512/5290/5290058.png" alt="">
+        </div>
+    </div>
+    <div id="noCorrect_toasted"
+        class="hidden rounded-l-3xl text-white absolute bottom-7 right-0 z-999 w-1/4 h-30 bg-red-800">
+        <div id="toasted_message" class="font-semibold px-4 py-2 flex items-center">
+            <span class="px-4 inline ">Hubo un problema agregando el usuario <p id="id_usuario" class="inline"></p>
+            </span>
+            <img class="w-11 " src="https://cdn-icons-png.flaticon.com/512/399/399274.png" alt="">
         </div>
     </div>
 
